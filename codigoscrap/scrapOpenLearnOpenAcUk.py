@@ -71,7 +71,7 @@ urlscrap='http://openlearn.open.ac.uk/course/view.php?name=M208_2'
 
 for cont,x in enumerate(datos):
 
-    if cont<65 :
+    if cont<73 : #http://openlearn.open.ac.uk/course/view.php?name=SCOT_1
         continue
     urlscrap=x[0]
     print '%s %s'%(cont,urlscrap)

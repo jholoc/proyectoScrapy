@@ -86,7 +86,7 @@ urlscrap='http://ocw.uc3m.es/ingenieria-telematica/telematica'
 
 for cont,x in enumerate(datos):
 
-    if cont<71:
+    if cont<171: #http://ocw.uc3m.es/ingenieria-telematica/communication-software
         continue
     urlscrap=x[0]
     print '%s  %s'%(cont,urlscrap)
