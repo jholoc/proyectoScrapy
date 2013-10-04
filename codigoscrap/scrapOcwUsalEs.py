@@ -42,11 +42,11 @@ texto='      nose ojala esets kdslknmfs   dsfoks      '
 
 
 
-tabla='CursosUnizarEs'
+tabla='CursosUsalEs'
 
 
 ObjBd = BDdatos()
-datos=ObjBd.CursosOcwUnizarEs()
+datos=ObjBd.CursosOcwUsalEs()
 
 for cont,x in enumerate(datos):
     if cont<0 : #108 http://ocw.um.es/ciencias/limnologia-regional
@@ -92,7 +92,7 @@ for cont,x in enumerate(datos):
             continue
 
         #hrefs= htmlCurso[0].find_all(href=re.compile("\.(pdf|mp3|mp4|zip|tar|gz|html|xls|xlsx|doc|docx|odt|ppt|pptx)$"))
-        hrefs= htmlCurso[0].find_all(href=re.compile("(\.(pdf|mp3|mp4|zip|tar|gz|html|htm|xls|xlsx|doc|docx|odt|ppt|pptx)$)"))
+        hrefs= htmlCurso[0].find_all(href=re.compile("(\.(pdf|mp3|mp4|zip|tar|gz|html|htm|xls|xlsx|doc|docx|odt|ppt|pptx|iso|ISO)$)"))
         if hrefs!=[]:
             #print 'Si hay oer'
             banderaOer=True

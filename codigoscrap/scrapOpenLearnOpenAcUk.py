@@ -64,6 +64,7 @@ def BuscaDescrip(aux):
 #print texto.replace(' ','')
 
 tabla='OpenLearn'
+tabla='CursosLearnOpen'
 
 ObjBd = BDdatos()
 datos=ObjBd.cursoslearnopen()
@@ -71,7 +72,7 @@ urlscrap='http://openlearn.open.ac.uk/course/view.php?name=M208_2'
 
 for cont,x in enumerate(datos):
 
-    if cont<73 : #http://openlearn.open.ac.uk/course/view.php?name=SCOT_1
+    if cont<218: #http://openlearn.open.ac.uk/course/view.php?name=L203_1
         continue
     urlscrap=x[0]
     print '%s %s'%(cont,urlscrap)
@@ -81,7 +82,7 @@ for cont,x in enumerate(datos):
 
     webpage1 = urlopen(urlscrap).read() #lectura de la pagina a scrapear
     soup1 = BeautifulSoup(webpage1)
-    tiSoup = soup1.select("div.content ul li")#selecion de la pagina que contiene los titulos de las noticias
+    tiSoup = soup1.select("div.content > ul > li")#selecion de la pagina que contiene los titulos de las noticias
 
     banderaOer=False
 
@@ -90,7 +91,6 @@ for cont,x in enumerate(datos):
         if i.get('class')!= None:
             if i.get('class')[0]=='oucontent-tree-current':
                 continue
-
         tituloMenu=i.a.text.strip()
         urlMenu=unionurl(urlscrap,i.a.get('href'))
         #print tituloMenu

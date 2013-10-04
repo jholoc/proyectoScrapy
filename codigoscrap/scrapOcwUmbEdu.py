@@ -42,11 +42,11 @@ texto='      nose ojala esets kdslknmfs   dsfoks      '
 
 
 
-tabla='CursosUnizarEs'
+tabla='CursosUmbEdu'
 
 
 ObjBd = BDdatos()
-datos=ObjBd.CursosOcwUnizarEs()
+datos=ObjBd.CursosOcwUmbEdu()
 
 for cont,x in enumerate(datos):
     if cont<0 : #108 http://ocw.um.es/ciencias/limnologia-regional
@@ -60,7 +60,7 @@ for cont,x in enumerate(datos):
     webpage1 = urlopen(urlscrap).read() #lectura de la pagina a scrapear 
     webpage1 = webpage1.replace('<p>','').replace('</p>','').replace('<td>','').replace('</td>','')
     soup1 = BeautifulSoup(webpage1)
-    tiSoup = soup1.select("div#portlet-eduCommonsNavigation > div.unSelected")#selecion de la pagina que contiene los titulos de las noticias
+    tiSoup = soup1.select("dl#portlet-simple-nav > dd.portletItem")#selecion de la pagina que contiene los titulos de las noticias
     banderaOer=False
 
     for i in tiSoup:

@@ -31,6 +31,9 @@ def unionurl(urlpag,urloer):
 def extraernombremenu(urlmenu):
     url=urlmenu.split('/')
     return url[len(url)-1]
+def extraerextoer(urlmenu):
+    url=urlmenu.split('.')
+    return url[len(url)-1]
 
 def ViewContenido(urlscrap,descripOer,extoer,htmlOer):
     webpage1 = urlopen(urlscrap).read() #lectura de la pagina a scrapear
@@ -38,15 +41,19 @@ def ViewContenido(urlscrap,descripOer,extoer,htmlOer):
     
     soup1=soup1.find(id='content')
     if soup1!=None:
-        UrlsOer = soup1.find_all(href=re.compile("((http://ocw.uc3m.es)\w\.|/at_download/file)$"))
+        UrlsOer = soup1.find_all(href=re.compile("\.(pdf|mp3|zip|tar|gz|html|xls|doc|docx|xlsx|ppt|pptx|odt|csv|swf|fl)$"))
         if UrlsOer!=[]:
             UrlOer=unionurl(urlscrap,UrlsOer[0].get('href'))
             #print '                %s'%UrlOer
             TituloOer= soup1.select('#parent-fieldname-title')[0]
-            TituloOer=str(TituloOer.text).strip()    
-            AutorOer= soup1.select('#authors')[0] 
-            AutorOer=str(AutorOer.text).strip()
-            LicenciaOer= soup1.select('#copyrightDocumentByLine')[0]
+            TituloOer=str(TituloOer.text).strip()  
+            AutorOer= soup1.select('p.documentByLine')
+            if soup1.select('p.documentByLine')==[]:
+                AutorOer='No existe autor'
+            else:
+                AutorOer= AutorOer[0] 
+                AutorOer=str(AutorOer.text).strip()
+            '''LicenciaOer= soup1.select('#copyrightDocumentByLine')[0]
             LicenciaOer=str(LicenciaOer.text).strip()
             LinkLicencia= soup1.select('#copyright-button')[0]
             #print LinkLicencia.find('a')
@@ -54,6 +61,7 @@ def ViewContenido(urlscrap,descripOer,extoer,htmlOer):
                 LinkLicencia= LinkLicencia.a.get('href')
             else:
                 LinkLicencia='No existe'
+            '''
             
             #print '                %s'%TituloOer
             #print '                %s'%AutorOer
@@ -67,9 +75,11 @@ def ViewContenido(urlscrap,descripOer,extoer,htmlOer):
             ObjBd.insertar_datos_trip(urlscrap,'html',str(htmlOer),tabla)
             
             ObjBd.insertar_datos_trip(urlscrap,'autor',AutorOer,tabla)
-            ObjBd.insertar_datos_trip(urlscrap,'LinkLicencia',LinkLicencia,tabla)
-            ObjBd.insertar_datos_trip(urlscrap,'textLicencia',LicenciaOer,tabla)
+            #ObjBd.insertar_datos_trip(urlscrap,'LinkLicencia',LinkLicencia,tabla)
+            #ObjBd.insertar_datos_trip(urlscrap,'textLicencia',LicenciaOer,tabla)
 
+            extoer=extraerextoer(UrlOer)
+            
             ObjBd.insertar_datos_trip(urlscrap,'rdf:type','oer',tabla)
             ObjBd.insertar_datos_trip(urlscrap,'rdf:type',extoer,tabla)
         else:
@@ -78,16 +88,17 @@ def ViewContenido(urlscrap,descripOer,extoer,htmlOer):
 
 
 
-tabla='CursosUc3m2'
+tabla='CursosUpmEs'
 
 
 ObjBd = BDdatos()
-datos=ObjBd.cursosuc3()
+datos=ObjBd.CursosOcwUpmEs()
 urlscrap='http://ocw.uc3m.es/ingenieria-telematica/telematica'
 
 for cont,x in enumerate(datos):
 
-    if cont<181: #http://ocw.uc3m.es/ingenieria-informatica/ingenieria-de-la-informacion
+    if cont!=97: # 97 http://ocw.upm.es/apoyo-para-la-preparacion-de-los-estudios-de-ingenieria-y-arquitectura/fisica-preparacion-para-la-universidad
+
         continue
     urlscrap=x[0]
     print '%s  %s'%(cont,urlscrap)
@@ -96,7 +107,7 @@ for cont,x in enumerate(datos):
     webpage1 = urlopen(urlscrap).read() #lectura de la pagina a scrapear
     soup1 = BeautifulSoup(webpage1)
     
-    tiSoup = soup1.select(".portletItem")#selecion de la pagina que contiene los titulos de las noticias
+    tiSoup = soup1.select("dl#portlet-simple-nav > dd.portletItem")#selecion de la pagina que contiene los titulos de las noticias
     
     banderaOer=False
 

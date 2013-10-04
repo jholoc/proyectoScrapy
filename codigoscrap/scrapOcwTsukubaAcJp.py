@@ -2,6 +2,7 @@
 import re,string
 from bs4 import *
 from urllib import urlopen
+import urllib
 from bd import *
 import unicodedata
 import sys
@@ -31,26 +32,40 @@ def extraernombremenu(urlmenu):
     url=urlmenu.split('/')
     return url[len(url)-1]
 
-def extraerextoer(urlmenu):
-    url=urlmenu.split('.')
+def extraerextoer(url):
+    url=url.split('.')
     return url[len(url)-1]
+
+def identificarOer(url):
+    patron = re.compile("(\.(pdf|mp3|mp4|wmv|zip|tar|gz|htm|xls|xlsx|doc|docx|odt|ppt|pptx|XLS|DOCX|PPTX|jpg)$)") 
+    busqueda=patron.search(url)
+    try:
+        if busqueda==None:          
+            urlOpen=urllib.urlopen(url)
+            #print urlOpen.info()['Content-Type']
+            if urlOpen.info()['Content-Type']=='application/pdf':
+                return 'pdf'
+            else:
+                return '0'
+        else:
+            return extraerextoer(url)
+    except Exception, e:
+                return '0'
 
 texto='      nose ojala esets kdslknmfs   dsfoks      '
 #print texto.strip(' ')
 #print texto.replace(' ','')
 
+#839
 
-
-
-tabla='CursosUnizarEs'
+tabla='CursosTsukubaAcJp'
 
 
 ObjBd = BDdatos()
-datos=ObjBd.CursosOcwUnizarEs()
-
+datos=ObjBd.CursosOcwTsukubaAcJp()
+urlscrap='http://ocw.mit.edu/courses/mechanical-engineering/2-29-numerical-fluid-mechanics-fall-2011'
 for cont,x in enumerate(datos):
-    if cont<0 : #108 http://ocw.um.es/ciencias/limnologia-regional
-
+    if cont<80:
         continue
     urlscrap=x[0]
     print '%s  %s'%(cont,urlscrap)  
@@ -58,15 +73,15 @@ for cont,x in enumerate(datos):
     ObjBd.insertar_datos_trip(urlscrap,'rdf:type','ocw',tabla)#insertar en la bd type
 
     webpage1 = urlopen(urlscrap).read() #lectura de la pagina a scrapear 
-    webpage1 = webpage1.replace('<p>','').replace('</p>','').replace('<td>','').replace('</td>','')
+    webpage1 = webpage1.replace('<p>','').replace('</p>','').replace('<br>','')
     soup1 = BeautifulSoup(webpage1)
     tiSoup = soup1.select("div#portlet-eduCommonsNavigation > div.unSelected")#selecion de la pagina que contiene los titulos de las noticias
+
     banderaOer=False
 
     for i in tiSoup:
         tituloMenu=i.a.text.strip()
         urlMenu=unionurl(urlscrap,i.a.get('href'))
-        print urlMenu
         
         ObjBd.insertar_datos_trip(urlscrap,'menu',urlMenu,tabla)
         ObjBd.insertar_datos_trip(urlMenu,'link',urlMenu,tabla)
@@ -79,20 +94,16 @@ for cont,x in enumerate(datos):
         #print urlMenu
         
         webpage2=urlopen(urlMenu).read()
-        #webpage2 = webpage2.replace('<p>','').replace('</p>','').replace('<td>','').replace('</td>','')
+        webpage2 = webpage2.replace('<p>','').replace('</p>','')
         soup2=BeautifulSoup(webpage2)
-        htmlCurso = soup2.select('#content')#html del curso
-        #htmlCurso=soup2.find(id='content')
-
+        htmlCurso = soup2.select('#content')#html de los menus
+        if htmlCurso==[]:
+            continue
 
         ObjBd.insertar_datos_trip(urlMenu,'html',str(htmlCurso),tabla)
 
-
-        if htmlCurso == []:
-            continue
-
-        #hrefs= htmlCurso[0].find_all(href=re.compile("\.(pdf|mp3|mp4|zip|tar|gz|html|xls|xlsx|doc|docx|odt|ppt|pptx)$"))
-        hrefs= htmlCurso[0].find_all(href=re.compile("(\.(pdf|mp3|mp4|zip|tar|gz|html|htm|xls|xlsx|doc|docx|odt|ppt|pptx)$)"))
+        hrefs= htmlCurso[0].find_all('a', href=True)
+        
         if hrefs!=[]:
             #print 'Si hay oer'
             banderaOer=True
@@ -102,6 +113,12 @@ for cont,x in enumerate(datos):
             #print 'No hay Oers'
             ObjBd.insertar_datos_trip(urlMenu,'existenOer','0',tabla)
         for href in hrefs:
+            extoer=identificarOer(href.get('href'))
+            #print extoer
+            if extoer=='0':
+                continue
+            print href.get('href')
+
             aux=href.previous_element
             while len(str(aux).replace(' ',''))<=3 or str(aux)[0]=='<':
                 if str(aux)[0]=='<':
@@ -142,7 +159,7 @@ for cont,x in enumerate(datos):
             ObjBd.insertar_datos_trip(urlOer,'description',textoOer,tabla)
             ObjBd.insertar_datos_trip(urlOer,'html',str(htmlOer),tabla)
 
-            extoer=extraerextoer(urlOer)
+            #extoer=extraerextoer(urlOer)
             ObjBd.insertar_datos_trip(urlOer,'rdf:type','oer',tabla)
             ObjBd.insertar_datos_trip(urlOer,'rdf:type',extoer,tabla)
 

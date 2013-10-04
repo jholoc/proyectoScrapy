@@ -42,11 +42,11 @@ texto='      nose ojala esets kdslknmfs   dsfoks      '
 
 
 
-tabla='CursosUnizarEs'
+tabla='CursosUdemEduMx'
 
 
 ObjBd = BDdatos()
-datos=ObjBd.CursosOcwUnizarEs()
+datos=ObjBd.CursosOcwUdemEduMx()
 
 for cont,x in enumerate(datos):
     if cont<0 : #108 http://ocw.um.es/ciencias/limnologia-regional

@@ -42,11 +42,11 @@ texto='      nose ojala esets kdslknmfs   dsfoks      '
 
 
 
-tabla='CursosUnizarEs'
+tabla='CursosInnovaUnedEs'
 
 
 ObjBd = BDdatos()
-datos=ObjBd.CursosOcwUnizarEs()
+datos=ObjBd.CursosOcwInnovaUnedEs()
 
 for cont,x in enumerate(datos):
     if cont<0 : #108 http://ocw.um.es/ciencias/limnologia-regional
@@ -58,7 +58,7 @@ for cont,x in enumerate(datos):
     ObjBd.insertar_datos_trip(urlscrap,'rdf:type','ocw',tabla)#insertar en la bd type
 
     webpage1 = urlopen(urlscrap).read() #lectura de la pagina a scrapear 
-    webpage1 = webpage1.replace('<p>','').replace('</p>','').replace('<td>','').replace('</td>','')
+    #webpage1 = webpage1.replace('<p>','').replace('</p>','')
     soup1 = BeautifulSoup(webpage1)
     tiSoup = soup1.select("div#portlet-eduCommonsNavigation > div.unSelected")#selecion de la pagina que contiene los titulos de las noticias
     banderaOer=False
@@ -92,7 +92,7 @@ for cont,x in enumerate(datos):
             continue
 
         #hrefs= htmlCurso[0].find_all(href=re.compile("\.(pdf|mp3|mp4|zip|tar|gz|html|xls|xlsx|doc|docx|odt|ppt|pptx)$"))
-        hrefs= htmlCurso[0].find_all(href=re.compile("(\.(pdf|mp3|mp4|zip|tar|gz|html|htm|xls|xlsx|doc|docx|odt|ppt|pptx)$)"))
+        hrefs= htmlCurso[0].find_all(href=re.compile("(\.(pdf|mp3|mp4|zip|tar|gz|html|xls|xlsx|doc|docx|odt|ppt|pptx)$)|(\./)"))
         if hrefs!=[]:
             #print 'Si hay oer'
             banderaOer=True

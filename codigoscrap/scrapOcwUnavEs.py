@@ -42,11 +42,11 @@ texto='      nose ojala esets kdslknmfs   dsfoks      '
 
 
 
-tabla='CursosUnizarEs'
+tabla='CursosUnavEs'
 
 
 ObjBd = BDdatos()
-datos=ObjBd.CursosOcwUnizarEs()
+datos=ObjBd.CursosOcwCursosUnavEs()
 
 for cont,x in enumerate(datos):
     if cont<0 : #108 http://ocw.um.es/ciencias/limnologia-regional
@@ -58,9 +58,9 @@ for cont,x in enumerate(datos):
     ObjBd.insertar_datos_trip(urlscrap,'rdf:type','ocw',tabla)#insertar en la bd type
 
     webpage1 = urlopen(urlscrap).read() #lectura de la pagina a scrapear 
-    webpage1 = webpage1.replace('<p>','').replace('</p>','').replace('<td>','').replace('</td>','')
+    webpage1 = webpage1.replace('<p>','').replace('</p>','').replace('<td>','').replace('</td>','').replace('<br>','')
     soup1 = BeautifulSoup(webpage1)
-    tiSoup = soup1.select("div#portlet-eduCommonsNavigation > div.unSelected")#selecion de la pagina que contiene los titulos de las noticias
+    tiSoup = soup1.select("td.menu_asignatura")#selecion de la pagina que contiene los titulos de las noticias
     banderaOer=False
 
     for i in tiSoup:
@@ -79,10 +79,11 @@ for cont,x in enumerate(datos):
         #print urlMenu
         
         webpage2=urlopen(urlMenu).read()
-        #webpage2 = webpage2.replace('<p>','').replace('</p>','').replace('<td>','').replace('</td>','')
+        #webpage2 = webpage2.replace('<p>','').replace('</p>','').replace('<td>','').replace('</td>','').replace('<br>','')
         soup2=BeautifulSoup(webpage2)
-        htmlCurso = soup2.select('#content')#html del curso
+        htmlCurso = soup2.select('td.contenido')#html del curso
         #htmlCurso=soup2.find(id='content')
+        
 
 
         ObjBd.insertar_datos_trip(urlMenu,'html',str(htmlCurso),tabla)
@@ -92,7 +93,8 @@ for cont,x in enumerate(datos):
             continue
 
         #hrefs= htmlCurso[0].find_all(href=re.compile("\.(pdf|mp3|mp4|zip|tar|gz|html|xls|xlsx|doc|docx|odt|ppt|pptx)$"))
-        hrefs= htmlCurso[0].find_all(href=re.compile("(\.(pdf|mp3|mp4|zip|tar|gz|html|htm|xls|xlsx|doc|docx|odt|ppt|pptx)$)"))
+        hrefs= htmlCurso[0].find_all(href=re.compile("(\.(pdf|mp3|mp4|zip|tar|gz|html|htm|xls|xlsx|doc|docx|odt|ppt|pptx|XLS|DOCX|PPTX)$)"))
+        
         if hrefs!=[]:
             #print 'Si hay oer'
             banderaOer=True

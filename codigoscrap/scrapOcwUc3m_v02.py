@@ -94,6 +94,7 @@ for cont,x in enumerate(datos):
     ObjBd.insertar_datos_trip(urlscrap,'link',urlscrap,tabla)
     ObjBd.insertar_datos_trip(urlscrap,'rdf:type','ocw',tabla)
     webpage1 = urlopen(urlscrap).read() #lectura de la pagina a scrapear
+    webpage1 = webpage1.replace('<em>','').replace('</em>','')
     soup1 = BeautifulSoup(webpage1)
     
     tiSoup = soup1.select(".portletItem")#selecion de la pagina que contiene los titulos de las noticias
