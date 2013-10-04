@@ -1,0 +1,16 @@
+#-*-coding: utf-8 -*-
+
+import codecs
+
+from bs4 import *
+from urllib import urlopen
+from bd import *
+import unicodedata
+
+ObjBd = BDdatos()
+datos=ObjBd.datos_start_url('link_cursos')
+for cursos1 in datos:
+	datos2=ObjBd.datos_start_url('OCWC_cursos')
+	for cursos2 in datos2:
+		if cursos1[1]=cursos2[3]
+			print cursos[1]
