@@ -62,13 +62,9 @@ for cont,x in enumerate(datos):
 	if soup1 ==[]:
 		continue 
 	hrefs= soup1[0].find_all(href=re.compile("(\.(pdf|mp3|mp4|zip|tar|gz|htm|xls|xlsx|doc|docx|odt|ppt|pptx|XLS|DOCX|PPTX)$)|(10045)"))
-	if hrefs!=[]:
-		#print 'Si hay oer'
-		banderaOer=True
+	if hrefs!=[]:		banderaOer=True
 		ObjBd.insertar_datos_trip(urlMenu,'existenOer','1',tabla)
 	else:
-		pass
-		#print 'No hay Oers'
 		ObjBd.insertar_datos_trip(urlMenu,'existenOer','0',tabla)
 	for href in hrefs:
 		aux=href.previous_element
@@ -89,13 +85,11 @@ for cont,x in enumerate(datos):
 				pass
 			else:
 				htmlOer=aux.parent # html del oer
-				descripOer=removersignos(aux.text).strip()#aux.text
-				#print '    %s'%descripOer
+				descripOer=removersignos(aux.text).strip()
 
 		else:
 			htmlOer=aux.parent
-			descripOer=removersignos(aux).strip()#aux
-			#print '   %s'%descripOer
+			descripOer=removersignos(aux).strip()
 
 		textoOer=href.text
 		urlOer=unionurl(urlscrap,href.get('href'))

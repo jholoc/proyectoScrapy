@@ -1,0 +1,88 @@
+#www.upv.es
+def ScrapUpvEs
+#www.unsavirtual.edu.pe:8090
+def ScrapUnsavirtualEduPe8090
+#www.unav.es
+def ScrapUanvEs
+#www.uhu.es
+def ScrapUhuEs
+#www.ocw.unc.edu.ar
+def ScrapUncEduAr
+#www.lapetus.uchile.cl
+def ScrapUchileCl
+#www.icesi.edu.co
+def ScrapIcesiEduCo
+#ocwus.us.es
+def ScrapUsEs
+#ocwbeta.uji.es   
+def ScrapUjiEs
+#ocw.virtualum.edu.co
+def ScrapVirtualumEduCo
+#ocw.uv.es
+def ScrapUvEs
+#ocw.usc.es
+def ScrapUscEs
+#ocw.usal.es
+def ScrapUsalEs
+#ocw.upm.es
+def ScrapUpmEs
+#ocw.upc.edu
+def ScrapUpcEdu
+#ocw.uoc.edu
+def ScrapUocEdu
+#ocw.unizar.es
+def ScrapUnizarEs
+#ocw.univalle.edu.co
+def ScrapUnivalleEduCo
+#ocw.uniovi.es
+def ScrapUnioviEs
+#ocw.unican.es
+def ScrapUnicanEs
+#ocw.unia.es
+def ScrapUniaEs
+#ocw.uni.edu.pe
+def ScrapUniEduPe
+#ocw.umh.es
+def ScrapUmhEs
+#ocw.uma.es
+def ScrapUmaEs
+#ocw.um.es
+def ScrapUmEs
+#ocw.ull.es
+def ScrapUllEs
+#ocw.uis.edu.co
+def ScrapUisEduCo
+#ocw.uib.es
+def ScrapUibEs
+#ocw.ugr.es
+def ScrapUgrEs
+#ocw.udl.cat
+def ScrapUdlCat
+#ocw.udem.edu.mx
+def ScrapUdemEduMx
+#ocw.uca.es
+def ScrapUcaEs
+#ocw.uc3m.es
+def ScrapUc3mEs
+#ocw.uam.es
+def ScrapUamEs
+#ocw.ua.es
+def ScrapUaEs
+#ocw.pucv.cl
+def ScrapPucvCl
+#ocw.itesm.mx
+def ScrapItesmMx
+#ocw.innova.uned.es
+def ScrapInnovaUnedEs
+#ocw.ie.edu
+def ScrapInnovaUnedEs
+#ocw.flacso.edu.mx:8080
+def ScrapFlacsoEduMx8080
+#ocw.ehu.es
+def ScrapEhuEs
+#ocw.ceu.es
+def ScrapCeuEs
+#ocw.camins.upc.edu
+def ScrapCaminsUpcEdu
+#ocw.bib.upct.es
+def ScrapBibUpctEs

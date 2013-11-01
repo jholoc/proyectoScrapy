@@ -13,7 +13,7 @@ def eliminasignos( text ):
     return re.sub('[%s]' % re.escape(string.punctuation), '', text)
 
 def removersignos(text):
-    signos=(',','.',';','+','{','}','[',']','(',')','^','~','#')
+    signos=(',','.',';','+','{','}','[',']','(',')','^','~','#','σ')
     for sig in signos:
         text=text.replace(sig,"")
     return text
@@ -35,26 +35,30 @@ def extraerextoer(urlmenu):
     url=urlmenu.split('.')
     return url[len(url)-1]
 
+texto='      nose ojala esets kdslknmfs   dsfoks      '
+#print texto.strip(' ')
+#print texto.replace(' ','')
 
-tabla='CursosUmEs'
+#839
+
+tabla='CursosMit3'
 
 
 ObjBd = BDdatos()
-datos=ObjBd.CursosOcwUmEs()
+datos=ObjBd.cursosmit()
 urlscrap='http://ocw.mit.edu/courses/mechanical-engineering/2-29-numerical-fluid-mechanics-fall-2011'
 for cont,x in enumerate(datos):
-    if cont!=0 : 
-
+    if cont<0:
         continue
     urlscrap=x[0]
     print '%s  %s'%(cont,urlscrap)  
-    ObjBd.insertar_datos_trip(urlscrap,'link',urlscrap,tabla)#insertar en la bd Link
-    ObjBd.insertar_datos_trip(urlscrap,'rdf:type','ocw',tabla)#insertar en la bd type
+    #ObjBd.insertar_datos_trip(urlscrap,'link',urlscrap,tabla)#insertar en la bd Link
+    #ObjBd.insertar_datos_trip(urlscrap,'rdf:type','ocw',tabla)#insertar en la bd type
 
     webpage1 = urlopen(urlscrap).read() #lectura de la pagina a scrapear 
     webpage1 = webpage1.replace('<p>','').replace('</p>','').replace('<br>','')
     soup1 = BeautifulSoup(webpage1)
-    tiSoup = soup1.select("dl#portlet-simple-nav > dd.portletItem")#selecion de la pagina que contiene los titulos de las noticias
+    tiSoup = soup1.select("li.")#selecion de la pagina que contiene los titulos de las noticias
 
     banderaOer=False
 
@@ -62,31 +66,39 @@ for cont,x in enumerate(datos):
         tituloMenu=i.a.text.strip()
         urlMenu=unionurl(urlscrap,i.a.get('href'))
         
-        ObjBd.insertar_datos_trip(urlscrap,'menu',urlMenu,tabla)
-        ObjBd.insertar_datos_trip(urlMenu,'link',urlMenu,tabla)
-        ObjBd.insertar_datos_trip(urlMenu,'title',tituloMenu,tabla)
-        ObjBd.insertar_datos_trip(urlMenu,'rdf:type','menu',tabla)
+        #ObjBd.insertar_datos_trip(urlscrap,'menu',urlMenu,tabla)
+        #ObjBd.insertar_datos_trip(urlMenu,'link',urlMenu,tabla)
+        #ObjBd.insertar_datos_trip(urlMenu,'title',tituloMenu,tabla)
+        #ObjBd.insertar_datos_trip(urlMenu,'rdf:type','menu',tabla)
         nombreMenu=extraernombremenu(urlMenu)
-        ObjBd.insertar_datos_trip(urlMenu,'rdf:type',nombreMenu,tabla)
+        #ObjBd.insertar_datos_trip(urlMenu,'rdf:type',nombreMenu,tabla)
+        try:
+            ObjBd.insertar_datos(urlscrap,urlMenu,tituloMenu,'','','cursostabla')
+        except Exception, e:
+            print e
+            continue
+        
+        
+        #print tituloMenu
+        #print urlMenu
         
         webpage2=urlopen(urlMenu).read()
-        webpage2 = webpage2.replace.replace('<strong>','').replace('</strong>','')#('<p>','').replace('</p>','')
-        soup2=BeautifulSoup(webpage2)#
-        htmlCurso = soup2.select('#content')#html del curso
+        webpage2 = webpage2.replace('<p>','').replace('</p>','')
+        soup2=BeautifulSoup(webpage2)
+        htmlCurso = soup2.select('#course_inner_section')#html del curso
 
+        #ObjBd.insertar_datos_trip(urlMenu,'html',str(htmlCurso),tabla)
 
+        hrefs= soup2.find_all(href=re.compile("\.(pdf|mp3|mp4|zip|tar|gz|html|xls|xlsx|doc|docx|odt|ppt|pptx|gif)$"))
 
-        ObjBd.insertar_datos_trip(urlMenu,'html',str(htmlCurso),tabla)
-
-        if htmlCurso == []:
-            continue
-
-        hrefs= htmlCurso[0].find_all(href=re.compile("\.(pdf|mp3|mp4|zip|tar|gz|html|xls|xlsx|doc|docx|ppt|pptx|flv)$"))
         if hrefs!=[]:
+            #print 'Si hay oer'
             banderaOer=True
-            ObjBd.insertar_datos_trip(urlMenu,'existenOer','1',tabla)
+            #ObjBd.insertar_datos_trip(urlMenu,'existenOer','1',tabla)
         else:
-            ObjBd.insertar_datos_trip(urlMenu,'existenOer','0',tabla)
+            pass
+            #print 'No hay Oers'
+            #ObjBd.insertar_datos_trip(urlMenu,'existenOer','0',tabla)
         for href in hrefs:
             aux=href.previous_element
             while len(str(aux).replace(' ',''))<=3 or str(aux)[0]=='<':
@@ -106,17 +118,23 @@ for cont,x in enumerate(datos):
                     pass
                 else:
                     htmlOer=aux.parent # html del oer
-                    descripOer=removersignos(aux.text).strip()#
+                    descripOer=removersignos(aux.text).strip()#aux.text
+                    #print '    %s'%descripOer
 
             else:
                 htmlOer=aux.parent
-                descripOer=removersignos(aux).strip()
+                descripOer=removersignos(aux).strip()#aux
+                #print '   %s'%descripOer
 
             textoOer=href.text
             urlOer=unionurl(urlscrap,href.get('href'))
+            #print '            %s'%descripOer
+            #print '            %s'%textoOer
+            #print '            %s'%urlOer
+            #print '            %s'%str(htmlOer)[0:10]
 
 
-            ObjBd.insertar_datos_trip(urlMenu,'oer',urlOer,tabla)
+            """ObjBd.insertar_datos_trip(urlMenu,'oer',urlOer,tabla)
             ObjBd.insertar_datos_trip(urlOer,'link',urlOer,tabla)
             ObjBd.insertar_datos_trip(urlOer,'title',descripOer ,tabla)
             ObjBd.insertar_datos_trip(urlOer,'description',textoOer,tabla)
@@ -124,12 +142,23 @@ for cont,x in enumerate(datos):
 
             extoer=extraerextoer(urlOer)
             ObjBd.insertar_datos_trip(urlOer,'rdf:type','oer',tabla)
-            ObjBd.insertar_datos_trip(urlOer,'rdf:type',extoer,tabla)
+            ObjBd.insertar_datos_trip(urlOer,'rdf:type',extoer,tabla)"""
+
+            try:
+                ObjBd.insertar_datos(urlscrap,urlMenu,tituloMenu,urlOer,descripOer,'cursostabla')
+            except Exception, e:
+                print e
+                continue
+
+            
+
 
 
     if banderaOer==True:
-        ObjBd.insertar_datos_trip(urlscrap,'existenOer','1',tabla)
+        pass
+        #print 'SI HAY OERS'
+        #ObjBd.insertar_datos_trip(urlscrap,'existenOer','1',tabla)
     else:
         print 'NO HAY OERS'
         print urlscrap
-        ObjBd.insertar_datos_trip(urlscrap,'existenOer','0',tabla)
+        #ObjBd.insertar_datos_trip(urlscrap,'existenOer','0',tabla)

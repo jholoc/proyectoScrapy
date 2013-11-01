@@ -57,9 +57,9 @@ for cont,x in enumerate(datos):
 		tablascrap=tablascrap.parent
 
 
-	#ObjBd.insertar_datos_trip(urlscrap,'link',urlscrap2,tabla)#insertar en la bd Link
-	#ObjBd.insertar_datos_trip(urlscrap,'rdf:type','ocw',tabla)#insertar en la bd type
-	#ObjBd.insertar_datos_trip(urlscrap,'html',str(htmlOcw),tabla)#insertar en la bd html
+	ObjBd.insertar_datos_trip(urlscrap,'link',urlscrap2,tabla)#insertar en la bd Link
+	ObjBd.insertar_datos_trip(urlscrap,'rdf:type','ocw',tabla)#insertar en la bd type
+	ObjBd.insertar_datos_trip(urlscrap,'html',str(htmlOcw),tabla)#insertar en la bd html
 
 
 
@@ -77,10 +77,10 @@ for cont,x in enumerate(datos):
 			extoer=extraerextoer(urlOer)
 			print extoer
 
-			#ObjBd.insertar_datos_trip(urlscrap,'oer',urlOer,tabla)
-			#ObjBd.insertar_datos_trip(urlOer,'link',urlOer,tabla)
-			#ObjBd.insertar_datos_trip(urlOer,'title',titulOer ,tabla)
-			#ObjBd.insertar_datos_trip(urlOer,'description',descripcionOer,tabla)
+			ObjBd.insertar_datos_trip(urlscrap,'oer',urlOer,tabla)
+			ObjBd.insertar_datos_trip(urlOer,'link',urlOer,tabla)
+			ObjBd.insertar_datos_trip(urlOer,'title',titulOer ,tabla)
+			ObjBd.insertar_datos_trip(urlOer,'description',descripcionOer,tabla)
 
-			#ObjBd.insertar_datos_trip(urlOer,'rdf:type','oer',tabla)
-			#ObjBd.insertar_datos_trip(urlOer,'rdf:type',extoer,tabla)
+			ObjBd.insertar_datos_trip(urlOer,'rdf:type','oer',tabla)
+			ObjBd.insertar_datos_trip(urlOer,'rdf:type',extoer,tabla)

@@ -18,11 +18,14 @@ def unionurl(urlpag,urloer):
         union= '/'.join(list1)
         return str(union)
 
-tabla='CursosUaEs'
+tabla='tablaavu'
+menu="nomenu"
+title="notitlemenu"
+
 
 
 ObjBd = BDdatos()
-datos=ObjBd.CursosOcwUaEs()
+datos=ObjBd.CursosOcwAvuOrg()
 urlscrap='http://oer.avu.org/handle/123456789/139'
 
 
@@ -41,16 +44,19 @@ for cont,x in enumerate(datos):
 	#ObjBd.insertar_datos_trip(urlscrap,'html',str(htmlOcw),tabla)#insertar en la bd html
 
 
+	#ObjBd.insertar_datos(urlscrap,'','','','','tablaavu')
+	
+	    
 
-	TablaSoup = soup1.select("table > tr")
+	TablaSoup = soup1.select("table.file-list.ds-table > tr")
 	for tablaoer in TablaSoup:
 		columnas=tablaoer.select('td')
 		if columnas != []:
-			#urlOer=unionurl('http://oer.avu.org',columnas[0].a.get('href'))
-			urlOer=columnas[4].a.get('href')
-			titulOer=columnas[1].text
+			urlOer=unionurl('http://oer.avu.org',columnas[0].a.get('href'))
+			titulOer=columnas[4].text
 			descripcionOer=columnas[0].a.text
-			extoer=columnas[3].text
+			extoer=columnas[2].text
+		
 			print urlOer
 
 			#ObjBd.insertar_datos_trip(urlscrap,'oer',urlOer,tabla)
@@ -60,3 +66,7 @@ for cont,x in enumerate(datos):
 
 			#ObjBd.insertar_datos_trip(urlOer,'rdf:type','oer',tabla)
 			#ObjBd.insertar_datos_trip(urlOer,'rdf:type',extoer,tabla)
+
+			ObjBd.insertar_datos(urlscrap,menu,title,urlOer,descripcionOer,'tablaavu')
+
+    

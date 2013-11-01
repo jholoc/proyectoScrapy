@@ -71,6 +71,14 @@ class BDdatos():
             (dato1))
         db.commit()
         db.close()
+
+    def crearTabla(self,nombretabla):
+        db=self.conectar()
+        cur=db.cursor()
+        cur.execute(u"""CREATE  TABLE ScrapyMenu."""+ nombretabla +"""( sujeto TEXT CHARACTER SET 'utf8' NULL , predicado TEXT CHARACTER SET 'utf8' NULL , objeto LONGTEXT CHARACTER SET 'utf8' NULL ) DEFAULT CHARACTER SET = utf8;""")
+        db.commit()
+        db.close()
+
         
     def insertar_datos_trip(self, s, p, o, tabla):
         db=self.conectar()
@@ -248,6 +256,7 @@ class BDdatos():
         datos = cursor.fetchall()
         db.close()
         return datos
+        
     def CursosOcwUnicanEs(self):
         """
             conectarme a la bd, para sacar los datos necesarios
@@ -473,7 +482,7 @@ class BDdatos():
         datos = cursor.fetchall()
         db.close()
         return datos
-        
+
     def CursosOcwNottinghamAcUk(self):
         """
             conectarme a la bd, para sacar los datos necesarios
@@ -481,6 +490,293 @@ class BDdatos():
         db=self.conectar() 
         cursor=db.cursor()
         sql = "SELECT distinct objeto FROM ScrapyMenu.OCWC_cursos where objeto like '%unow.nottingham.ac.uk%';"
+        cursor.execute(sql)
+        datos = cursor.fetchall()
+        db.close()
+        return datos
+    
+    def CursosOcwAghEduPl(self):
+        """
+            conectarme a la bd, para sacar los datos necesarios
+        """
+        db=self.conectar() 
+        cursor=db.cursor()
+        sql = "SELECT distinct objeto FROM ScrapyMenu.OCWC_cursos where objeto like '%open.agh.edu.pl%';"
+        cursor.execute(sql)
+        datos = cursor.fetchall()
+        db.close()
+        return datos
+        
+    def CursosOcwNckuEduTw(self):
+        """
+            conectarme a la bd, para sacar los datos necesarios
+        """
+        db=self.conectar() 
+        cursor=db.cursor()
+        sql = "SELECT distinct objeto FROM ScrapyMenu.OCWC_cursos where objeto like '%yct.ncku.edu.tw%';"
+        cursor.execute(sql)
+        datos = cursor.fetchall()
+        db.close()
+        return datos
+        cursosOcwNdEdu
+    def cursosOcwNdEdu(self):
+        """
+            conectarme a la bd, para sacar los datos necesarios
+        """
+        db=self.conectar() 
+        cursor=db.cursor()
+        sql = "SELECT distinct objeto FROM ScrapyMenu.OCWC_cursos where objeto like '%ocw.nd.edu%';"
+        cursor.execute(sql)
+        datos = cursor.fetchall()
+        db.close()
+        return datos
+        
+    def cursosTuftsEdu(self):
+        """
+            conectarme a la bd, para sacar los datos necesarios
+        """
+        db=self.conectar() 
+        cursor=db.cursor()
+        sql = "SELECT distinct objeto FROM ScrapyMenu.OCWC_cursos where objeto like '%ocw.tufts.edu%';"
+        cursor.execute(sql)
+        datos = cursor.fetchall()
+        db.close()
+        return datos
+        
+    def CursosOcwUtmMy(self):
+        """
+            conectarme a la bd, para sacar los datos necesarios
+        """
+        db=self.conectar() 
+        cursor=db.cursor()
+        sql = "SELECT distinct objeto FROM ScrapyMenu.OCWC_cursos where objeto like '%ocw.utm.my%';"
+        cursor.execute(sql)
+        datos = cursor.fetchall()
+        db.close()
+        return datos
+        
+    def cursosUnioviEs(self):
+        """
+            conectarme a la bd, para sacar los datos necesarios
+        """
+        db=self.conectar() 
+        cursor=db.cursor()
+        sql = "SELECT distinct objeto FROM ScrapyMenu.OCWC_cursos where objeto like '%ocw.uniovi.es%';"
+        cursor.execute(sql)
+        datos = cursor.fetchall()
+        db.close()
+        return datos
+        
+    def cursosUdlCat(self):
+        """
+            conectarme a la bd, para sacar los datos necesarios
+        """
+        db=self.conectar() 
+        cursor=db.cursor()
+        sql = "SELECT distinct objeto FROM ScrapyMenu.OCWC_cursos where objeto like '%ocw.udl.cat%';"
+        cursor.execute(sql)
+        datos = cursor.fetchall()
+        db.close()
+        return datos
+        
+    def cursosTmuEduTw(self):
+        """
+            conectarme a la bd, para sacar los datos necesarios
+        """
+        db=self.conectar() 
+        cursor=db.cursor()
+        sql = "SELECT distinct objeto FROM ScrapyMenu.OCWC_cursos where objeto like '%ocw.tmu.edu.tw:8080%';"
+        cursor.execute(sql)
+        datos = cursor.fetchall()
+        db.close()
+        return datos
+        
+    def CursosOcwNjitEdu(self):
+        """
+            conectarme a la bd, para sacar los datos necesarios
+        """
+        db=self.conectar() 
+        cursor=db.cursor()
+        sql = "SELECT distinct objeto FROM ScrapyMenu.OCWC_cursos where objeto like '%ocw.njit.edu%';"
+        cursor.execute(sql)
+        datos = cursor.fetchall()
+        db.close()
+        return datos
+        
+    def cursosTudelftNl(self):
+        """
+            conectarme a la bd, para sacar los datos necesarios
+        """
+        db=self.conectar() 
+        cursor=db.cursor()
+        sql = "SELECT distinct objeto FROM ScrapyMenu.OCWC_cursos where objeto like '%ocw.tudelft.nl%';"
+        cursor.execute(sql)
+        datos = cursor.fetchall()
+        db.close()
+        return datos
+        
+    def CursosOcwUgrEs(self):
+        """
+            conectarme a la bd, para sacar los datos necesarios
+        """
+        db=self.conectar() 
+        cursor=db.cursor()
+        sql = "SELECT distinct objeto FROM ScrapyMenu.OCWC_cursos where objeto like '%ocw.ugr.es%';"
+        cursor.execute(sql)
+        datos = cursor.fetchall()
+        db.close()
+        return datos
+        
+    def CursosOcwUnuEdu(self):
+        """
+            conectarme a la bd, para sacar los datos necesarios
+        """
+        db=self.conectar() 
+        cursor=db.cursor()
+        sql = "SELECT distinct objeto FROM ScrapyMenu.OCWC_cursos where objeto like '%ocw.unu.edu%';"
+        cursor.execute(sql)
+        datos = cursor.fetchall()
+        db.close()
+        return datos
+        
+    def CursosOcwUibEs(self):
+        """
+            conectarme a la bd, para sacar los datos necesarios
+        """
+        db=self.conectar() 
+        cursor=db.cursor()
+        sql = "SELECT distinct objeto FROM ScrapyMenu.OCWC_cursos where objeto like '%ocw.uib.es%';"
+        cursor.execute(sql)
+        datos = cursor.fetchall()
+        db.close()
+        return datos
+    
+    def CursosOcwUabCat(self):
+        """
+            conectarme a la bd, para sacar los datos necesarios
+        """
+        db=self.conectar() 
+        cursor=db.cursor()
+        sql = "SELECT distinct objeto FROM ScrapyMenu.OCWC_cursos where objeto like '%ocw.uab.cat%';"
+        cursor.execute(sql)
+        datos = cursor.fetchall()
+        db.close()
+        return datos
+        
+    def CursosOcwUnedAcCr(self):
+        """
+            conectarme a la bd, para sacar los datos necesarios
+        """
+        db=self.conectar() 
+        cursor=db.cursor()
+        sql = "SELECT distinct objeto FROM ScrapyMenu.OCWC_cursos where objeto like '%ocw.uned.ac.cr%';"
+        cursor.execute(sql)
+        datos = cursor.fetchall()
+        db.close()
+        return datos
+        
+    def CursosOcwUtplEduEc(self):
+        """
+            conectarme a la bd, para sacar los datos necesarios
+        """
+        db=self.conectar() 
+        cursor=db.cursor()
+        sql = "SELECT distinct objeto FROM ScrapyMenu.OCWC_cursos where objeto like '%ocw.utpl.edu.ec%';"
+        cursor.execute(sql)
+        datos = cursor.fetchall()
+        db.close()
+        return datos
+        
+    def CursosOcwSbuAcIr(self):
+        """
+            conectarme a la bd, para sacar los datos necesarios
+        """
+        db=self.conectar() 
+        cursor=db.cursor()
+        sql = "SELECT distinct objeto FROM ScrapyMenu.OCWC_cursos where objeto like '%ocw.sbu.ac.ir%';"
+        cursor.execute(sql)
+        datos = cursor.fetchall()
+        db.close()
+        return datos
+
+    def CursosOcwUsuAcId(self):
+        """
+            conectarme a la bd, para sacar los datos necesarios
+        """
+        db=self.conectar() 
+        cursor=db.cursor()
+        sql = "SELECT distinct objeto FROM ScrapyMenu.OCWC_cursos where objeto like '%ocw.usu.ac.id%';"
+        cursor.execute(sql)
+        datos = cursor.fetchall()
+        db.close()
+        return datos
+        UnivalleEduCo
+    def CursosOcwUnivalleEduCo(self):
+        """
+            conectarme a la bd, para sacar los datos necesarios
+        """
+        db=self.conectar() 
+        cursor=db.cursor()
+        sql = "SELECT distinct objeto FROM ScrapyMenu.OCWC_cursos where objeto like '%ocw.univalle.edu.co%';"
+        cursor.execute(sql)
+        datos = cursor.fetchall()
+        db.close()
+        return datos
+        
+    def CursosOcwIcesiEduCo(self):
+        """
+            conectarme a la bd, para sacar los datos necesarios
+        """
+        db=self.conectar() 
+        cursor=db.cursor()
+        sql = "SELECT distinct objeto FROM ScrapyMenu.OCWC_cursos where objeto like '%www.icesi.edu.co%';"
+        cursor.execute(sql)
+        datos = cursor.fetchall()
+        db.close()
+        return datos
+        
+    def CursosOcwKyushuuAcJp(self):
+        """
+            conectarme a la bd, para sacar los datos necesarios
+        """
+        db=self.conectar() 
+        cursor=db.cursor()
+        sql = "SELECT distinct objeto FROM ScrapyMenu.OCWC_cursos where objeto like '%ocw.kyushu-u.ac.jp%';"
+        cursor.execute(sql)
+        datos = cursor.fetchall()
+        db.close()
+        return datos
+        
+    def CursosOcwMetropoliaFi(self):
+        """
+            conectarme a la bd, para sacar los datos necesarios
+        """
+        db=self.conectar() 
+        cursor=db.cursor()
+        sql = "SELECT distinct objeto FROM ScrapyMenu.OCWC_cursos where objeto like '%wiki.metropolia.fi%';"
+        cursor.execute(sql)
+        datos = cursor.fetchall()
+        db.close()
+        return datos
+    
+    def CursosOcwUniversia(self):
+        """
+            conectarme a la bd, para sacar los datos necesarios
+        """
+        db=self.conectar() 
+        cursor=db.cursor()
+        sql = "SELECT distinct sujeto FROM ScrapyMenu.universia_cursos;"
+        cursor.execute(sql)
+        datos = cursor.fetchall()
+        db.close()
+        return datos
+    def CursosUniversia(self):
+        """
+            conectarme a la bd, para sacar los datos necesarios
+        """
+        db=self.conectar() 
+        cursor=db.cursor()
+        sql = "SELECT distinct objeto FROM ScrapyMenu.CursosUniversia where predicado='link' limit 1000000000000000;"
         cursor.execute(sql)
         datos = cursor.fetchall()
         db.close()

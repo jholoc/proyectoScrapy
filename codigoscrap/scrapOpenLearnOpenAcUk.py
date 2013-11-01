@@ -59,9 +59,7 @@ def BuscaDescrip(aux):
         #print '   %s'%descripOer
 
     return [descripOer,htmlOer]
-#texto='      nose ojala esets kdslknmfs   dsfoks      '
-#print texto.strip(' ')
-#print texto.replace(' ','')
+
 
 tabla='OpenLearn'
 tabla='CursosLearnOpen'
@@ -72,7 +70,7 @@ urlscrap='http://openlearn.open.ac.uk/course/view.php?name=M208_2'
 
 for cont,x in enumerate(datos):
 
-    if cont<218: #http://openlearn.open.ac.uk/course/view.php?name=L203_1
+    if cont<218: 
         continue
     urlscrap=x[0]
     print '%s %s'%(cont,urlscrap)
@@ -93,9 +91,7 @@ for cont,x in enumerate(datos):
                 continue
         tituloMenu=i.a.text.strip()
         urlMenu=unionurl(urlscrap,i.a.get('href'))
-        #print tituloMenu
-        #print urlMenu
-
+       
         ObjBd.insertar_datos_trip(urlscrap,'menu',urlMenu,tabla)
         ObjBd.insertar_datos_trip(urlMenu,'link',urlMenu,tabla)
         ObjBd.insertar_datos_trip(urlMenu,'title',tituloMenu,tabla)
@@ -112,18 +108,15 @@ for cont,x in enumerate(datos):
         ObjBd.insertar_datos_trip(urlMenu,'html',str(htmlCurso),tabla)
 
         if soup2==None:
-            #print 'No hay Oers'
             ObjBd.insertar_datos_trip(urlMenu,'existenOer','0',tabla)
             continue
 
         hrefs= soup2.find_all(href=re.compile("\.(pdf|mp3|zip|tar|gz|html|xml|doc|docx)$"))
 
         if hrefs!=[]:
-            #print 'Si hay oer'
             banderaOer=True
             ObjBd.insertar_datos_trip(urlMenu,'existenOer','1',tabla)
         else:
-           # print 'No hay Oers'
             ObjBd.insertar_datos_trip(urlMenu,'existenOer','0',tabla)
         
 
@@ -134,10 +127,6 @@ for cont,x in enumerate(datos):
 
             textoOer=href.text
             urlOer=unionurl(urlscrap,href.get('href'))
-            #print '            %s'%descripOer[0]#descripcion
-            #print '            %s'%descripOer[1]#HTML descripcion
-            #print '            %s'%textoOer
-            #print '            %s'%urlOer
 
 
             ObjBd.insertar_datos_trip(urlMenu,'oer',urlOer,tabla)
@@ -151,8 +140,6 @@ for cont,x in enumerate(datos):
             ObjBd.insertar_datos_trip(urlOer,'rdf:type',extoer,tabla)
             
     if banderaOer==True:
-        pass
-        #print 'SI HAY OERS'
         ObjBd.insertar_datos_trip(urlscrap,'existenOer','1',tabla)
     else:
         print 'NO HAY OERS'

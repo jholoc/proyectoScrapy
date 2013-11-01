@@ -35,21 +35,15 @@ def extraerextoer(urlmenu):
     url=urlmenu.split('.')
     return url[len(url)-1]
 
-texto='      nose ojala esets kdslknmfs   dsfoks      '
-#print texto.strip(' ')
-#print texto.replace(' ','')
-
-
 
 
 tabla='CursosUvEs'
-
 
 ObjBd = BDdatos()
 datos=ObjBd.CursosOcwUvEs()
 
 for cont,x in enumerate(datos):
-    if cont<0 : #108 http://ocw.um.es/ciencias/limnologia-regional
+    if cont<0 : 
 
         continue
     urlscrap=x[0]
@@ -58,7 +52,6 @@ for cont,x in enumerate(datos):
     ObjBd.insertar_datos_trip(urlscrap,'rdf:type','ocw',tabla)#insertar en la bd type
 
     webpage1 = urlopen(urlscrap).read() #lectura de la pagina a scrapear 
-    #webpage1 = webpage1.replace('<p>','').replace('</p>','')
     soup1 = BeautifulSoup(webpage1)
     tiSoup = soup1.select("div#portlet-eduCommonsNavigation > div#unSelected")#selecion de la pagina que contiene los titulos de las noticias
     banderaOer=False

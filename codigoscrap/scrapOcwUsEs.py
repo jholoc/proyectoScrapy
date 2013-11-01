@@ -53,17 +53,12 @@ def BuscaDescrip(aux):
             pass
         else:
             htmlOer=aux.parent # html del oer
-            descripOer=removersignos(aux.text)#aux.text
-            #print '    %s'%descripOer
+            descripOer=removersignos(aux.text)
     else:
         htmlOer=aux.parent
-        descripOer=removersignos(aux).strip()#aux
-        #print '   %s'%descripOer
+        descripOer=removersignos(aux).strip()
 
     return [descripOer,htmlOer]
-#texto='      nose ojala esets kdslknmfs   dsfoks      '
-#print texto.strip(' ')
-#print texto.replace(' ','')
 
 tabla='scrapOcwUsEs'
 
@@ -95,8 +90,6 @@ for cont,x in enumerate(datos):
         if urlMenu==urlscrap:
             continue
 
-        #print tituloMenu
-        #print urlMenu
 
 
 
@@ -116,18 +109,15 @@ for cont,x in enumerate(datos):
         ObjBd.insertar_datos_trip(urlMenu,'html',str(htmlCurso),tabla)
 
         if soup2==None:
-            #print 'No hay Oers'
             ObjBd.insertar_datos_trip(urlMenu,'existenOer','0',tabla)
             continue
 
         hrefs= soup2.find_all(href=re.compile("\.(pdf|mp3|zip|tar|gz|html|htm|xml|doc|docx|jsp)$"))
 
         if hrefs!=[]:
-            #print 'Si hay oer'
             banderaOer=True
             ObjBd.insertar_datos_trip(urlMenu,'existenOer','1',tabla)
         else:
-           # print 'No hay Oers'
             ObjBd.insertar_datos_trip(urlMenu,'existenOer','0',tabla)
         
 
@@ -138,10 +128,6 @@ for cont,x in enumerate(datos):
 
             textoOer=href.text
             urlOer=unionurl(urlscrap,href.get('href'))
-            #print '            %s'%descripOer[0]#descripcion
-            #print '            %s'%descripOer[1]#HTML descripcion
-            #print '            %s'%textoOer
-            #print '            %s'%urlOer
 
 
             ObjBd.insertar_datos_trip(urlMenu,'oer',urlOer,tabla)
@@ -155,8 +141,6 @@ for cont,x in enumerate(datos):
             ObjBd.insertar_datos_trip(urlOer,'rdf:type',extoer,tabla)
             
     if banderaOer==True:
-        pass
-        #print 'SI HAY OERS'
         ObjBd.insertar_datos_trip(urlscrap,'existenOer','1',tabla)
     else:
         print 'NO HAY OERS'

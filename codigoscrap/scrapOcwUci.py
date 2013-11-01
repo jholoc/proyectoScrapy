@@ -57,5 +57,4 @@ for cont,x in enumerate(datos):
         print urlvi
         ObjBd.insertar_datos_trip(urlscrap,'existenOer','1',tabla)
     else:
-    	ObjBd.insertar_datos_trip(urlscrap,'existenOer','0',tabla)
-#replace('</p>','')
+        ObjBd.insertar_datos_trip(urlscrap,'existenOer','0',tabla)

@@ -46,12 +46,6 @@ def iriToUri(iri):
         for parti, part in enumerate(parts)
     )
 
-texto='      nose ojala esets kdslknmfs   dsfoks      '
-#print texto.strip(' ')
-#print texto.replace(' ','')
-
-
-
 
 tabla='CursosUctAcZa'
 
@@ -60,9 +54,7 @@ ObjBd = BDdatos()
 datos=ObjBd.CursosOcwUctAcZa()
 
 for cont,x in enumerate(datos):
-    if cont<209 : #
-
-
+    if cont<209 : 
         continue
     urlscrap=x[0]
     print '%s  %s'%(cont,urlscrap)  
@@ -110,12 +102,9 @@ for cont,x in enumerate(datos):
         ObjBd.insertar_datos_trip(urlMenu,'rdf:type','menu',tabla)
         nombreMenu=extraernombremenu(urlMenu)
         ObjBd.insertar_datos_trip(urlMenu,'rdf:type',nombreMenu,tabla)
-        
-        #print tituloMenu
-        #print urlMenu
+
         
         webpage2=urlopen(urlMenu2.url).read()
-        #webpage2 = webpage2.replace('<p>','').replace('</p>','').replace('<td>','').replace('</td>','').replace('<br>','')
         soup2=BeautifulSoup(webpage2)
         htmlCurso = soup2
         
@@ -127,16 +116,12 @@ for cont,x in enumerate(datos):
         if htmlCurso == []:
             continue
 
-        #hrefs= htmlCurso[0].find_all(href=re.compile("\.(pdf|mp3|mp4|zip|tar|gz|html|xls|xlsx|doc|docx|odt|ppt|pptx)$"))
         hrefs= htmlCurso.find_all(href=re.compile("(\.(pdf|mp3|mp4|wmv|zip|tar|gz|html|htm|xls|xlsx|doc|docx|odt|ppt|pptx|XLS|DOCX|PPTX)$)"))
         
         if hrefs!=[]:
-            #print 'Si hay oer'
             banderaOer=True
             ObjBd.insertar_datos_trip(urlMenu,'existenOer','1',tabla)
         else:
-            pass
-            #print 'No hay Oers'
             ObjBd.insertar_datos_trip(urlMenu,'existenOer','0',tabla)
         for href in hrefs:
             aux=href.previous_element
@@ -157,22 +142,15 @@ for cont,x in enumerate(datos):
                     pass
                 else:
                     htmlOer=aux.parent # html del oer
-                    descripOer=removersignos(aux.text).strip()#aux.text
-                    #print '    %s'%descripOer
+                    descripOer=removersignos(aux.text).strip()
 
             else:
                 htmlOer=aux.parent
-                descripOer=removersignos(aux).strip()#aux
-                #print '   %s'%descripOer
+                descripOer=removersignos(aux).strip()
 
             textoOer=href.text
             urlOer=unionurl(urlMenu2.url[0:len(urlMenu2.url)-1],href.get('href'))
-            #print '            %s'%descripOer
-            #print '            %s'%textoOer
-            #print '            %s'%urlOer
-            #print '            %s'%str(htmlOer)[0:10]
-
-
+           
             ObjBd.insertar_datos_trip(urlMenu,'oer',urlOer,tabla)
             ObjBd.insertar_datos_trip(urlOer,'link',urlOer,tabla)
             ObjBd.insertar_datos_trip(urlOer,'title',descripOer ,tabla)
@@ -185,8 +163,6 @@ for cont,x in enumerate(datos):
 
 
     if banderaOer==True:
-        pass
-        #print 'SI HAY OERS'
         ObjBd.insertar_datos_trip(urlscrap,'existenOer','1',tabla)
     else:
         print 'NO HAY OERS'

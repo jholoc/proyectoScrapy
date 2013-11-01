@@ -53,20 +53,7 @@ def ViewContenido(urlscrap,descripOer,extoer,htmlOer):
             else:
                 AutorOer= AutorOer[0] 
                 AutorOer=str(AutorOer.text).strip()
-            '''LicenciaOer= soup1.select('#copyrightDocumentByLine')[0]
-            LicenciaOer=str(LicenciaOer.text).strip()
-            LinkLicencia= soup1.select('#copyright-button')[0]
-            #print LinkLicencia.find('a')
-            if LinkLicencia.find('a')!=None:
-                LinkLicencia= LinkLicencia.a.get('href')
-            else:
-                LinkLicencia='No existe'
-            '''
             
-            #print '                %s'%TituloOer
-            #print '                %s'%AutorOer
-            #print '                %s'%LinkLicencia
-            #print '                %s'%LicenciaOer[0:20]
             
 
             ObjBd.insertar_datos_trip(urlscrap,'link',UrlOer,tabla)
@@ -75,8 +62,6 @@ def ViewContenido(urlscrap,descripOer,extoer,htmlOer):
             ObjBd.insertar_datos_trip(urlscrap,'html',str(htmlOer),tabla)
             
             ObjBd.insertar_datos_trip(urlscrap,'autor',AutorOer,tabla)
-            #ObjBd.insertar_datos_trip(urlscrap,'LinkLicencia',LinkLicencia,tabla)
-            #ObjBd.insertar_datos_trip(urlscrap,'textLicencia',LicenciaOer,tabla)
 
             extoer=extraerextoer(UrlOer)
             
@@ -97,7 +82,7 @@ urlscrap='http://ocw.uc3m.es/ingenieria-telematica/telematica'
 
 for cont,x in enumerate(datos):
 
-    if cont!=97: # 97 http://ocw.upm.es/apoyo-para-la-preparacion-de-los-estudios-de-ingenieria-y-arquitectura/fisica-preparacion-para-la-universidad
+    if cont!=97: 
 
         continue
     urlscrap=x[0]
@@ -131,8 +116,6 @@ for cont,x in enumerate(datos):
             ViewContenido(urlMenu,tituloMenu,'zip',i)
             continue
 
-        #print tituloMenu
-        #print urlMenu
 
         ObjBd.insertar_datos_trip(urlscrap,'menu',urlMenu,tabla)
         ObjBd.insertar_datos_trip(urlMenu,'link',urlMenu,tabla)
@@ -154,17 +137,14 @@ for cont,x in enumerate(datos):
         ObjBd.insertar_datos_trip(urlMenu,'html',htmlCurso,tabla)
 
         if soup2==None:
-            #print 'No hay Oers'
             ObjBd.insertar_datos_trip(urlMenu,'existenOer','0',tabla)
             continue
         hrefs= soup2.find_all(href=re.compile("((http://ocw.uc3m.es)\w\.|/view)$"))
 
         if hrefs!=[]:
-            #print 'Si hay oer'
             banderaOer=True
             ObjBd.insertar_datos_trip(urlMenu,'existenOer','1',tabla)
         else:
-            #print 'No hay Oers'
             ObjBd.insertar_datos_trip(urlMenu,'existenOer','0',tabla)
 
         for href in hrefs:
@@ -187,20 +167,13 @@ for cont,x in enumerate(datos):
                     pass
                 else:
                     htmlOer=aux.parent # html del oer
-                    descripOer=removersignos(aux.text).strip() #aux.text
-                    #print '    %s'% descripOer
+                    descripOer=removersignos(aux.text).strip() 
             else:
                 htmlOer=aux.parent
-                descripOer=removersignos(aux).strip() #aux
-                #print '   %s'%descripOer
+                descripOer=removersignos(aux).strip() 
 
             textoOer=href.text.strip()#es el tipo de oer(pdf,zip,etc)
-            urlOer=unionurl(urlscrap,href.get('href'))#unionurl(urlscrap,href.get('href').strip('/at_download/file').strip('/view'))
-            #print htmlOer
-            #print '            %s'%descripOer
-            #print '            %s'%textoOer
-            #print '            %s'%urlOer #href.get('href').strip('/at_download/file').strip('/view')
-
+            urlOer=unionurl(urlscrap,href.get('href'))
 
 
             ObjBd.insertar_datos_trip(urlMenu,'oer',urlOer,tabla)
@@ -208,7 +181,6 @@ for cont,x in enumerate(datos):
             ViewContenido(urlOer,descripOer,textoOer,htmlOer)
 
     if banderaOer==True:
-        #print 'SI HAY OERS'
         ObjBd.insertar_datos_trip(urlscrap,'existenOer','1',tabla)
     else:
         print 'NO HAY OERS'

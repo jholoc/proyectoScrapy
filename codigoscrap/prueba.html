@@ -1,547 +1,240 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/><title>
-  Unow: Resource Details
-</title><meta content="IE=7" http-equiv="X-UA-Compatible"/><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/><meta content="text/css" http-equiv="Content-Style-Type"/><meta content="text/javascript" http-equiv="Content-Script-Type"/><meta content="Contensis CMS Version 6.0" name="GENERATOR"/>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js" type="text/javascript"></script>
-<script src="scriptcms/jquery-1.6.2.min.js" type="text/javascript"></script>
-<script type="text/javascript">
-
+<html dir="ltr" lang="es-es" xml:lang="es-es" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<link href="http://ocw.ugr.es/theme/standard/styles.php" rel="stylesheet" type="text/css"/>
+<link href="http://ocw.ugr.es/theme/cevug_ocw/styles.php" rel="stylesheet" type="text/css"/>
+<meta content="" name="description"/>
+<!--[if IE 7]>
+    <link rel="stylesheet" type="text/css" href="http://ocw.ugr.es/theme/standard/styles_ie7.css" />
+<![endif]-->
+<!--[if IE 6]>
+    <link rel="stylesheet" type="text/css" href="http://ocw.ugr.es/theme/standard/styles_ie6.css" />
+<![endif]-->
+<!--[if IE 7]>
+    <link rel="stylesheet" type="text/css" href="http://ocw.ugr.es/theme/custom_corners/styles_ie7.css" />
+<![endif]-->
+<!--[if IE 6]>
+    <link rel="stylesheet" type="text/css" href="http://ocw.ugr.es/theme/custom_corners/styles_ie6.css" />
+<![endif]-->
+<meta content="moodle, OpenCourseWare UGR " name="keywords"/>
+<title>OpenCourseWare UGR</title>
+<link href="http://ocw.ugr.es/theme/cevug_ocw/favicon.ico" rel="shortcut icon"/>
+<!--<style type="text/css">/*<![CDATA[*/ body{behavior:url(http://ocw.ugr.es/lib/csshover.htc);} /*]]>*/</style>-->
+<script src="http://ocw.ugr.es/lib/javascript-static.js" type="text/javascript"></script>
+<script src="http://ocw.ugr.es/lib/javascript-mod.php" type="text/javascript"></script>
+<script src="http://ocw.ugr.es/lib/overlib/overlib.js" type="text/javascript"></script>
+<script src="http://ocw.ugr.es/lib/overlib/overlib_cssstyle.js" type="text/javascript"></script>
+<script src="http://ocw.ugr.es/lib/cookies.js" type="text/javascript"></script>
+<script src="http://ocw.ugr.es/lib/ufo.js" type="text/javascript"></script>
+<script src="http://ocw.ugr.es/lib/dropdown.js" type="text/javascript"></script>
+<script defer="defer" type="text/javascript">
 //<![CDATA[
-
-if (typeof(window.$j) == 'undefined') { window.$j = $; }
-window.$j.register = function(name) {if (!this._components){this._components = {};} this._components[name] = true;};
-window.$j.isRegistered = function(name) { if (!this._components) { return false; } return !!(this._components[name]); };
-window.$j.requires = function(name) { if (!this.isRegistered(name)) { alert('JQuery Extension " ' + name + '" not registered'); }};
-if (typeof(jQuery.fn.setArray) == 'undefined') { jQuery.fn.setArray = function( elems ) { this.length = 0; jQuery.fn.push.apply(this, elems); return this; }};
+setTimeout('fix_column_widths()', 20);
 //]]>
 </script>
-<meta content="31285" name="CONTENT.ID"/>
-<script src="scriptcms/jqueryui.js" type="text/javascript"></script>
-<script src="scriptcms/global.js" type="text/javascript"></script>
-<script src="scriptcms/internal.js" type="text/javascript"></script>
 <script type="text/javascript">
-
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', "UA-1555653-1"]);
-    _gaq.push(['_setDomainName', '.nottingham.ac.uk']);
-    _gaq.push(['_setAllowHash', false]);
-    _gaq.push(['_trackPageview']);
-    _gaq.push(['_trackPageLoadTime']);
-    (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-    function MM_jumpMenu(targ, selObj, restore) { //v3.0
-        eval(targ + ".location='" + selObj.options[selObj.selectedIndex].value + "'");
-        if (restore) selObj.selectedIndex = 0;
+//<![CDATA[
+function openpopup(url, name, options, fullscreen) {
+    var fullurl = "http://ocw.ugr.es" + url;
+    var windowobj = window.open(fullurl, name, options);
+    if (!windowobj) {
+        return true;
     }
-</script>
-<script type="text/javascript">
-
-    var persistmenu = "yes" //"yes" or "no". Make sure each SPAN content contains an incrementing ID starting at 1 (id="sub1", id="sub2", etc)
-    var persisttype = "sitewide" //enter "sitewide" for menu to persist across site, "local" for this page only
-
-    if (document.getElementById) { //DynamicDrive.com change
-        document.write('<style type="text/css">\n')
-        document.write('.submenu{display: none;}\n')
-        document.write('</style>\n')
+    if (fullscreen) {
+        windowobj.moveTo(0, 0);
+        windowobj.resizeTo(screen.availWidth, screen.availHeight);
     }
-
-    function SwitchMenu(obj) {
-        if (document.getElementById) {
-            var el = document.getElementById(obj);
-            var ar = document.getElementById("masterdiv").getElementsByTagName("span"); //DynamicDrive.com change
-            if (el.style.display != "block") { //DynamicDrive.com change
-                for (var i = 0; i < ar.length; i++) {
-                    if (ar[i].className == "submenu") //DynamicDrive.com change
-                        ar[i].style.display = "none";
-                }
-                el.style.display = "block";
-            } else {
-                el.style.display = "none";
-            }
-        }
-        scrollTo(0, 0);
-    }
-
-    function get_cookie(Name) {
-        var search = Name + "="
-        var returnvalue = "";
-        if (document.cookie.length > 0) {
-            offset = document.cookie.indexOf(search)
-            if (offset != -1) {
-                offset += search.length
-                end = document.cookie.indexOf(";", offset);
-                if (end == -1) end = document.cookie.length;
-                returnvalue = unescape(document.cookie.substring(offset, end))
-            }
-        }
-        return returnvalue;
-    }
-
-    function onloadfunction() {
-        if (persistmenu == "yes") {
-            var cookiename = (persisttype == "sitewide") ? "switchmenu" : window.location.pathname
-            var cookievalue = get_cookie(cookiename)
-            if (cookievalue != "")
-                document.getElementById(cookievalue).style.display = "block"
-        }
-    }
-
-    function savemenustate() {
-        var inc = 1, blockid = ""
-        while (document.getElementById("sub" + inc)) {
-            if (document.getElementById("sub" + inc).style.display == "block") {
-                blockid = "sub" + inc
-                break
-            }
-            inc++
-        }
-        var cookiename = (persisttype == "sitewide") ? "switchmenu" : window.location.pathname
-        var cookievalue = (persisttype == "sitewide") ? blockid + ";path=/" : blockid
-        document.cookie = cookiename + "=" + cookievalue
-    }
-
-    if (window.addEventListener)
-        window.addEventListener("load", onloadfunction, false)
-    else if (window.attachEvent)
-        window.attachEvent("onload", onloadfunction)
-    else if (document.getElementById)
-        window.onload = onloadfunction
-
-    if (persistmenu == "yes" && document.getElementById)
-        window.onunload = savemenustate
-
-</script>
-<script type="text/javascript">
-function openemail() {
-    document.location = "mailto:Learning-Team-Support@nottingham.ac.uk";
+    windowobj.focus();
+    return false;
 }
+
+function uncheckall() {
+    var inputs = document.getElementsByTagName('input');
+    for(var i = 0; i < inputs.length; i++) {
+        inputs[i].checked = false;
+    }
+}
+
+function checkall() {
+    var inputs = document.getElementsByTagName('input');
+    for(var i = 0; i < inputs.length; i++) {
+        inputs[i].checked = true;
+    }
+}
+
+function inserttext(text) {
+  text = ' ' + text + ' ';
+  if ( opener.document.forms['theform'].message.createTextRange && opener.document.forms['theform'].message.caretPos) {
+    var caretPos = opener.document.forms['theform'].message.caretPos;
+    caretPos.text = caretPos.text.charAt(caretPos.text.length - 1) == ' ' ? text + ' ' : text;
+  } else {
+    opener.document.forms['theform'].message.value  += text;
+  }
+  opener.document.forms['theform'].message.focus();
+}
+
+function getElementsByClassName(oElm, strTagName, oClassNames){
+  var arrElements = (strTagName == "*" && oElm.all)? oElm.all : oElm.getElementsByTagName(strTagName);
+  var arrReturnElements = new Array();
+  var arrRegExpClassNames = new Array();
+  if(typeof oClassNames == "object"){
+    for(var i=0; i<oClassNames.length; i++){
+      arrRegExpClassNames.push(new RegExp("(^|\\s)" + oClassNames[i].replace(/\-/g, "\\-") + "(\\s|$)"));
+    }
+  }
+  else{
+    arrRegExpClassNames.push(new RegExp("(^|\\s)" + oClassNames.replace(/\-/g, "\\-") + "(\\s|$)"));
+  }
+  var oElement;
+  var bMatchesAll;
+  for(var j=0; j<arrElements.length; j++){
+    oElement = arrElements[j];
+    bMatchesAll = true;
+    for(var k=0; k<arrRegExpClassNames.length; k++){
+      if(!arrRegExpClassNames[k].test(oElement.className)){
+        bMatchesAll = false;
+        break;
+      }
+    }
+    if(bMatchesAll){
+      arrReturnElements.push(oElement);
+    }
+  }
+  return (arrReturnElements)
+}
+//]]>
 </script>
-<!--styles -->
-<link href="../stylesheetcms/unow.css" rel="stylesheet" type="text/css"/><link href="../stylesheetcms/global.css" rel="stylesheet" type="text/css"/><link href="../stylesheetcms/homepage.css" rel="stylesheet" type="text/css"/><link href="../stylesheetcms/thickbox.css" rel="stylesheet" type="text/css"/><link href="../stylesheetcms/unow.css" rel="stylesheet" type="text/css"/><link href="../stylesheetcms/variations/faculties.css" rel="stylesheet" type="text/css"/><link href="../stylesheetcms/print.css" media="print" rel="stylesheet" type="text/css"/>
-<!--link href="styleSheetcms/screen.css" rel="stylesheet" type="text/css" media="screen" /-->
-<link href="../styleSheetcms/tagcloud.css" media="screen" rel="stylesheet" type="text/css"/></head>
-<body>
-<form action="resource.aspx?hid=1c2bca21-c31e-98df-b5a9-33f95130616f" id="aspnetForm" method="post" name="aspnetForm">
-<input id="__VIEWSTATE" name="__VIEWSTATE" type="hidden" value="/wEPDwUKLTMxNTg1MDc5MQ9kFgJmD2QWAgIDD2QWCGYPDxYCHgRUZXh0BbEBPGEgc3R5bGU9InRleHQtZGVjb3JhdGlvbjpub25lO2NvbG9yOiAjMDAzMzY2OyIgaHJlZj0iaHR0cDovL3Vub3cubm90dGluZ2hhbS5hYy51ay9yZXNvdXJjZXMuYXNweCI+TGVhcm5pbmcgUmVzb3VyY2VzPC9hPiBLaW5nIExlYXIgdG8gSW4gdGhlIGxvb3AgOiBmaWN0aW9uIGFuZCBCcml0aXNoIHBvbGl0aWNzZGQCAQ8PFgIfAAU3S2luZyBMZWFyIHRvIEluIHRoZSBsb29wIDogZmljdGlvbiBhbmQgQnJpdGlzaCBwb2xpdGljc2RkAgoPDxYCHgtOYXZpZ2F0ZVVybAUlaHR0cDovL3Vub3cubm90dGluZ2hhbS5hYy51ay9yc3MuYXNoeGRkAgsPZBYSAgEPFgIfAAWtDTxkaXYgY2xhc3M9InJlc291cmNlLXRpdGxlIj48aDE+S2luZyBMZWFyIHRvIEluIHRoZSBsb29wIDogZmljdGlvbiBhbmQgQnJpdGlzaCBwb2xpdGljczwvaDE+PC9kaXY+PGRpdiBjbGFzcz0icmVzb3VyY2UtaW1nIj48aW1nIHNyYz0iaHR0cDovL2VxdWVsbGF0ZW1wLm5vdHRpbmdoYW0uYWMudWsvdW9uL2l0ZW1zLzFjMmJjYTIxLWMzMWUtOThkZi1iNWE5LTMzZjk1MTMwNjE2Zi8xL19USFVNQlMvcG9kY2FzdHNUaHVtYl9qcGcuanBlZy5qcGVnIiBhbHQ9IktpbmcgTGVhciB0byBJbiB0aGUgbG9vcCA6IGZpY3Rpb24gYW5kIEJyaXRpc2ggcG9saXRpY3MiIHRpdGxlPSJLaW5nIExlYXIgdG8gSW4gdGhlIGxvb3AgOiBmaWN0aW9uIGFuZCBCcml0aXNoIHBvbGl0aWNzIiBhbGlnbj0ibGVmdCIgYm9yZGVyPSIwIiB3aWR0aD0iMTUwIiBoZWlnaHQ9IjgwIiAvPjwvZGl2PjxkaXYgY2xhc3M9InJlc291cmNlLXR4dCI+T24gMTEgRGVjZW1iZXIgMjAwOSwgTm90dGluZ2hhbSBVbml2ZXJzaXR5J3MgQ2VudHJlIGZvciBCcml0aXNoIFBvbGl0aWNzIGhlbGQgYSBjb25mZXJlbmNlIGF0IHRoZSBCcml0aXNoIEFjYWRlbXkgdGhhdCBkcmV3IHRvZ2V0aGVyIHBvbGl0aWNpYW5zLCB3cml0ZXJzIGFuZCBhY2FkZW1pY3MgdG8gZXhwbG9yZSB0aGUgaW50ZXJhY3Rpb24gb2YgQnJpdGlzaCBwb2xpdGljcyBhbmQgZmljdGlvbi4gPGJyIC8+PGJyIC8+SW4gYWRkaXRpb24gdG8gdGhlIGNvbmZlcmVuY2Ugc2V2ZXJhbCB2aWRlbyBpbnRlcnZpZXdzIHdlcmUgY29uZHVjdGVkIHdpdGggc29tZSBvZiB0aGUgc3BlYWtlcnMgb24gdGhlIGRheS48YnIgLz48YnIgLz5JbiB0aGlzIGludGVydmlldyB0YWtlbiBhdCB0aGUgRmljdGlvbiBhbmQgQnJpdGlzaCBQb2xpdGljcyBDb25mZXJlbmNlIGluIExvbmRvbiwgTVAgYW5kIGF1dGhvciBDaHJpcyBNdWxsaW4gdGFsa3MgYWJvdXQgaGlzIG93biBwb2xpdGljYWwgZmljdGlvbiBhbmQgZXhwbGFpbnMgd2h5IHRoZSBsaW5lIGJldHdlZW4gcG9saXRpY2FsIHJlYWxpdHkgYW5kIGZpY3Rpb24gaXMgbXVjaCB0aGlubmVyIHRoYW4geW91J2QgdGhpbmsuPGJyIC8+PGJyIC8+U3VpdGFibGUgZm9yIFVuZGVyZ3JhZHVhdGUgc3R1ZHkgYW5kIGNvbW11bml0eSBlZHVjYXRpb248YnIgLz48YnIgLz5DaHJpcyBNdWxsZW4sIEZvcm1lciBNUCwgQXV0aG9yIGFuZCBKb3VybmFsaXN0IDxiciAvPjxiciAvPkNocmlzIE11bGxlbiB3YXMgYSBNZW1iZXIgb2YgUGFybGlhbWVudCBmb3IgU3VuZGVybGFuZCBTb3V0aCBiZXR3ZWVuIDE5ODctMjAxMC4gSGlzIGJvb2tzIGluY2x1ZGUgcG9saXRpY2FsIGRpYXJpZXMgIkEgVmlldyBmcm9tIHRoZSBGb290aGlsbHMiIGFuZCBub3ZlbHMgc3VjaCBhcyB0aGUgY2xhc3NpYyBwb2xpdGljYWwgdGhyaWxsZXIgIkEgVmVyeSBCcml0aXNoIENvdXAiIGFuZCAiRXJyb3Igb2YgSnVkZ2VtZW50IC0gdGhlIHRydXRoIGFib3V0IHRoZSBCaXJtaW5naGFtIEJvbWJpbmdzIiBib3RoIG9mIHdoaWNoIHdlcmUgYWRhcHRlZCBmb3IgVFYuPGJyIC8+PGJyIC8+VGhlIENlbnRyZSBmb3IgQnJpdGlzaCBQb2xpdGljcyBpcyBiYXNlZCBpbiB0aGUgVW5pdmVyc2l0eSdzIFNjaG9vbCBvZiBQb2xpdGljcyBhbmQgSW50ZXJuYXRpb25hbCBSZWxhdGlvbnMuIHd3dy5ub3R0aW5naGFtLmFjLnVrL3BvbGl0aWNzL2NicCA8YnIgLz48YnIgLz48YnIgLz4gPGJyIC8+PC9kaXY+ZAICDw8WAh4GSXRlbUlEBSQxYzJiY2EyMS1jMzFlLTk4ZGYtYjVhOS0zM2Y5NTEzMDYxNmZkFgICCw88KwANAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnRmZGQCBQ8WAh8ABQJNQmQCBg8WAh8ABQpSaWNoIE1lZGlhZAIIDxYCHglpbm5lcmh0bWwF2gE8YSBzdHlsZT0iY29sb3I6d2hpdGU7IiBvbmNsaWNrPSJNTV9vcGVuQnJXaW5kb3coJ2h0dHA6Ly93aXJrc3dvcnRoaWkvUG9kY2FzdHMvZmlsZXMvcm1nL3B1YmxpYy9Zb3VUdWJlL2xpdmUvZmJwbXVsbGluLm1wNCcsJ3dpbnJlc291cmNlJywnc2Nyb2xsYmFycz15ZXMscmVzaXphYmxlPXllcyx3aWR0aD05MDAsaGVpZ2h0PTY3MCcpIiBocmVmPSIjIj5WaWV3IHJlc291cmNlPC9hPmQCCQ8WAh8FBbYBPGEgc3R5bGU9J2NvbG9yOndoaXRlJyBocmVmPSd0ZXJtY21zLmFzcHg/aGlkPTFjMmJjYTIxLWMzMWUtOThkZi1iNWE5LTMzZjk1MTMwNjE2ZiZ1cmw9aHR0cDovL3dpcmtzd29ydGhpaS9Qb2RjYXN0cy9maWxlcy9ybWcvcHVibGljL1lvdVR1YmUvbGl2ZS9mYnBtdWxsaW4ubXA0Jz5Eb3dubG9hZCByZXNvdXJjZTwvYT5kAgsPFgIfAAXAATxwPjxhIGhyZWY9J2h0dHA6Ly93d3cubm90dGluZ2hhbS5hYy51ay94cGVydC9zY29yZXJlc3VsdHMucGhwP2tleXdvcmRzPUtpbmcgTGVhciB0byBJbiB0aGUgbG9vcCA6IGZpY3Rpb24gYW5kIEJyaXRpc2ggcG9saXRpY3MnPktpbmcgTGVhciB0byBJbiB0aGUgbG9vcCA6IGZpY3Rpb24gYW5kIEJyaXRpc2ggcG9saXRpY3M8L2E+PC9wPmQCDA8WAh8AZWQCDQ8WAh8ABVE8cC8+VW5pdmVyc2l0eSBvZiBOb3R0aW5naGFtLiBJbmZvcm1hdGlvbiBTZXJ2aWNlcy4gTGVhcm5pbmcgVGVhbTxwLz5DaHJpcyBNdWxsZW5kGAEFMmN0bDAwJENvbnRlbnRQbGFjZUhvbGRlcjEkQ29tbWVudHMxJGd2Q29tbWVudHNMaXN0DzwrAAoBCGZkniUbDNJhzL+x3ZE3ruSgAJV7rKU="/>
-<input id="__EVENTVALIDATION" name="__EVENTVALIDATION" type="hidden" value="/wEWBwLw1o3CCwKspZHMCAKEnYG+AwK2wLG7CQKfiYXgAQKph7aNBALr0vKQBbQmgoZ3zD3W9zzKhz6VA9nqbsbN"/>
-<div id="wrapper">
-<div id="container">
-<div id="header">
-<ul id="headerlinks">
-<li class="sys_skip">
-<a href="#TopOfPage">Skip to main content</a>
-</li>
-<li>
-<a class="sys_0 sys_t32075" href="http://www.nottingham.ac.uk/about/datesandcampusinformation/mapsanddirections/mapsanddirections.aspx" title="Campus maps and directions">
-                Campus maps</a>
-</li>
-<li><a href="http://www.nottingham.ac.uk/contacting/">Contact us</a> </li>
-<li><a href="http://jobs.nottingham.ac.uk/">Jobs</a> </li>
-<li><a class="sys_0 sys_t32003" href="http://www.nottingham.ac.uk/utilities/help.aspx" title="Get help using this website">Help</a> </li>
-<li><a href="http://www.nottingham.ac.uk/az-index.php">A-Z index</a> </li>
-</ul>
-<ul id="campuslinks">
-<li class="nottingham"><a href="http://www.nottingham.ac.uk/">UK Campus</a> </li>
-<li><a href="http://www.nottingham.edu.cn/">China Campus</a> </li>
-<li><a href="http://www.nottingham.edu.my/">Malaysia Campus</a> </li>
-</ul>
-</div>
-<div id="logo">
-<a href="http://www.nottingham.ac.uk/" title="The University of Nottingham homepage">
-                    The University of Nottingham homepage</a>
-</div>
-<div id="logo-unow">
-<a href="http://unow.nottingham.ac.uk/" title="U-Now: University of Nottingham’s open courseware">
-                Unow homepage</a>
-</div>
-<div id="printHeader">
-<img alt="logo" height="68" src="/imagecms/base/logo.png" width="170"/>
-</div>
-<div id="internalWrap">
-<div id="internalWrap2">
-<div id="secondaryBgImage">
-<div id="internal">
-<div id="breadcrumb">
-<strong class="sys_youAreHere">You are here:</strong>  
-                                <div>
-<a class="sys_0 sys_t32899" href="/indexcms.aspx" title="Go to University of Nottingham from here">
-                                        U-Now Home</a><span><span id="ctl00_lbpage"><a href="http://unow.nottingham.ac.uk/resources.aspx" style="text-decoration:none;color: #003366;">Learning Resources</a> King Lear to In the loop : fiction and British politics</span></span>
-</div>
-</div>
-<div id="pageTitle">
-<h1>
-<span id="ctl00_titlelabel">King Lear to In the loop : fiction and British politics</span>
-</h1>
-</div>
-<div id="holder">
-<div id="internalNav">
-<div id="NavDiv">
-<ul class="sys_simpleListMenu">
-<li>
-<div id="ctl00_ind">
-<a class="sys_0 sys_t32075" href="http://unow.nottingham.ac.uk/indexcms.aspx" title="Go to Unow Home from here">
-                                                        U-Now Home</a></div>
-</li>
-<li class="sys_first">
-<div id="ctl00_res">
-<a class="sys_0 sys_t32075" href="http://unow.nottingham.ac.uk/resources.aspx" title="Go to Learning Resources from here">
-                                                        Learning Resources</a>
-</div>
-</li>
-<li>
-<div id="ctl00_opn">
-<a class="sys_0 sys_t32075" href="http://unow.nottingham.ac.uk/open.aspx" title="Go to Open Nottingham from here">
-                                                        Open Nottingham</a>
-</div>
-</li>
-<li>
-<div id="ctl00_sub">
-<a class="sys_0 sys_t32075" href="http://unow.nottingham.ac.uk/subcms.aspx" title="Go to Submit Resources from here">
-                                                        Submit Resources</a>
-</div>
-</li>
-<li>
-<div id="ctl00_lin">
-<a class="sys_0 sys_t32075" href="http://unow.nottingham.ac.uk/links.aspx" title="Links">
-                                                        Links</a></div>
-</li>
-<li>
-<div id="ctl00_abo">
-<a class="sys_0 sys_t32075" href="http://unow.nottingham.ac.uk/about.aspx" title="Go to About Unow from here">
-                                                        About</a></div>
-</li>
-<li>
-<div id="ctl00_tea">
-<a class="sys_0 sys_t32075" href="http://unow.nottingham.ac.uk/about.aspx?team=team#team" title="Go to Meet the Team from here">
-                                                        Meet the Team</a></div>
-</li>
-<li>
-<div id="ctl00_con">
-<a href="javascript:openemail();">Email Us</a>
-</div>
-</li>
-</ul>
-</div>
-</div>
-<div id="main">
-<div id="content">
-<div class="sys_atoz-control">
-<div id="rss-pod">
-<a href="http://unow.nottingham.ac.uk/rss.ashx" id="ctl00_hyperLinkRSS"><img alt="RSS" border="0" src="../imagecms/base/feed-icon-12x12.png"/></a>
-</div>
-<div class="sys_SocialBookmarks">
-<a href="http://www.addthis.com/bookmark.php?v=250" onblur="addthis_close()" onclick="return addthis_sendto()" onfocus="return addthis_open(this, '', '[URL]', '[TITLE]')" onkeypress="return addthis_sendto()" onmouseout="addthis_close()" onmouseover="return addthis_open(this, '', '[URL]', '[TITLE]')">
-<img alt="Bookmark and Share" height="16" src="http://s7.addthis.com/static/btn/lg-share-en.gif" style="border: 0pt none;" width="125"/>
-</a>
-<script src="http://s7.addthis.com/js/250/addthis_widget.js?pub=uonweb" type="text/javascript"></script>
-</div>
-</div>
-<div class="sys_twoColumns">
-<script src="http://www.google.com/jsapi" type="text/javascript"></script>
-<script type="text/javascript">
-      $(document).ready(function() { document.forms[0].reset(); });
-    </script>
-<script type="text/javascript">
-        $(document).ready(function() { searchClicked("King Lear to In the loop : fiction and British politics"); });
-    </script>
-<script type="text/javascript">
-
-        function searchClicked(tit) {
-            //alert(document.getElementById("videoResultsDiv"));
-            document.getElementById("videoResultsDiv").innerHTML = 'Loading YouTube videos ...';
-
-            //create a JavaScript element that returns our JSON data.
-            var script = document.createElement('script');
-            script.setAttribute('id', 'jsonScript');
-            script.setAttribute('type', 'text/javascript');
-            script.setAttribute('src', 'http://gdata.youtube.com/feeds/' +
-                   'videos?vq=' + tit + '&max-results=8&' +
-                   'alt=json-in-script&callback=showMyVideos&' +
-                   'orderby=relevance&sortorder=descending&format=5&fmt=18');
-
-            //attach script to current page -  this will submit asynchronous
-            //search request, and when the results come back callback 
-            //function showMyVideos(data) is called and the results passed to it
-            document.documentElement.firstChild.appendChild(script);
-        }
-
-        function showMyVideos(data) {
-            var feed = data.feed;
-            var entries = feed.entry || [];
-            var html = ['<ul>'];
-            for (var i = 0; i < entries.length; i++) {
-                var entry = entries[i];
-                var playCount = entry.yt$statistics.viewCount.valueOf() + ' views';
-                var title = entry.title.$t;
-                var lnk = '<a href = \"' + entry.link[0].href + '\">link</a>';
-                html.push('<li>', title, ', ', playCount, ', ', lnk, '</li>');
-            }
-            html.push('</ul>');
-            document.getElementById('videoResultsDiv').innerHTML = html.join('');
-        }
-
-    </script>
-<script type="text/javascript">
-    function MM_openBrWindow(theURL, winName, features) {
-        window.open(theURL, winName, features);
-    }
-    </script>
-<!--column 01 -->
-<div class="sys_relatedLeft">
-<div id="ctl00_ContentPlaceHolder1_pnlNoResults">
-</div>
-<div class="resource-title"><h1>King Lear to In the loop : fiction and British politics</h1></div><div class="resource-img"><img align="left" alt="King Lear to In the loop : fiction and British politics" border="0" height="80" src="http://equellatemp.nottingham.ac.uk/uon/items/1c2bca21-c31e-98df-b5a9-33f95130616f/1/_THUMBS/podcastsThumb_jpg.jpeg.jpeg" title="King Lear to In the loop : fiction and British politics" width="150"/></div><div class="resource-txt">On 11 December 2009, Nottingham University's Centre for British Politics held a conference at the British Academy that drew together politicians, writers and academics to explore the interaction of British politics and fiction. <br/><br/>In addition to the conference several video interviews were conducted with some of the speakers on the day.<br/><br/>In this interview taken at the Fiction and British Politics Conference in London, MP and author Chris Mullin talks about his own political fiction and explains why the line between political reality and fiction is much thinner than you'd think.<br/><br/>Suitable for Undergraduate study and community education<br/><br/>Chris Mullen, Former MP, Author and Journalist <br/><br/>Chris Mullen was a Member of Parliament for Sunderland South between 1987-2010. His books include political diaries "A View from the Foothills" and novels such as the classic political thriller "A Very British Coup" and "Error of Judgement - the truth about the Birmingham Bombings" both of which were adapted for TV.<br/><br/>The Centre for British Politics is based in the University's School of Politics and International Relations. www.nottingham.ac.uk/politics/cbp <br/><br/><br/> <br/></div>
-<p>
-<br/>
-<br/>
-<br/>
-</p>
-<style type="text/css">
-    .style1
-    {
-        width: 7%;
-    }
+<script charset="utf-8" type="text/javascript">
+/* <![CDATA[ */
+    var CSSClass={};CSSClass.is=function(e,c){if(typeof e=="string")e=document.getElementById(e);var classes=e.className;if(!classes)return false;if(classes==c)return true;return e.className.search("\\b"+c+"\\b")!=-1;};CSSClass.add=function(e,c){if(typeof e=="string")e=document.getElementById(e);if(CSSClass.is(e,c))return;if(e.className)c=" "+c;e.className+=c;};CSSClass.remove=function(e,c){if(typeof e=="string")e=document.getElementById(e);e.className=e.className.replace(new RegExp("\\b"+c+"\\b\\s*","g"),"");};
     
-    .Grid
-{
-border-style:solid;
-border-width: 1px;
-border-bottom-color:black;
-border-top-color: black;
-border-left-color:black;
-border-right-color:black;
-
-
-}
-.Grid th
-{
-
-border-width:1px;
-border-bottom-color:white;
-border-top-color: white;
-
-}
-.Grid td
-{
-
-border-width: 1px;
-border-bottom-color:black;
-border-top-color: white;
-border-left-color:black;
-border-right-color:black;
-
-}
-</style>
-<script language="javascript" type="text/javascript">
-    //$(document).ready(function() { $('#capcha').s3Capcha(); });
-</script>
+    var script = {
+        corrections: function () {
+            if (top.user) {
+                top.document.getElementsByTagName('frameset')[0].rows = "117,30%,0,200";
+            }
+            
+            // check for layouttabel and add layouttable classes to body
+            var tagname = 'nolayouttable';
+            if (document.getElementById('middle-column')) {
+                var lc = document.getElementById('left-column');
+                var rc = document.getElementById('right-column');
+                if ( lc && rc ) {
+                    tagname = 'haslayouttable rightandleftcolumn';
+                } else if (lc) {
+                    tagname = 'haslayouttable onlyleftcolumn';
+                } else if (rc) {
+                    tagname = 'haslayouttable onlyrightcolumn';
+                } else {
+                    tagname = 'haslayouttable onlymiddlecolumn';
+                }
+            }
+            
+            function setbodytag (tagname) {
+                var bd = document.getElementsByTagName('body')[0];
+                if (bd) {
+                    CSSClass.add(bd, tagname);
+                } else {
+                    setTimeout(function() { setbodytag(tagname) }, 30);
+                }
+            }
+            
+            setTimeout(function() { setbodytag(tagname) }, 30);
+        },
+        
+        init: function() {
+            script.corrections();
+        }
+    };
+/* ]]> */
+</script><!-- BEGIN Google Analytics script -->
 <script type="text/javascript">
-        var a = Math.ceil(Math.random() * 10);
-        var b = Math.ceil(Math.random() * 10);
-        var c = a + b
-        function DrawBotBoot() {
-            document.write("What is " + a + " + " + b + "? ");
-            document.write("<input id='BotBootInput' type='text' maxlength='2' size='2'/>");
-        }
-        function ValidBotBoot() {
-            var d = document.getElementById('BotBootInput').value;
-            if (d == c) return true;
-            return false;
 
-        }
-    </script>
-<table style="font-size: 12px;" width="100%">
-<tr><td><p><br/><br/><br/><br/></p></td></tr>
-<tr><td><p>Use the form below to add a comment about this resource.</p></td></tr>
-<tr valign="top">
-<td style="vertical-align: top; background-color: #ffffff">
-<table class="tablestyle" style="width: 100%">
-<tr class="rowstyle">
-<td class="style1" nowrap>
-                        Name
-                    </td>
-<td>
-<input id="ctl00_ContentPlaceHolder1_Comments1_txtUserName" name="ctl00$ContentPlaceHolder1$Comments1$txtUserName" type="text"/>
-</td>
-</tr>
-<tr class="rowstyle">
-<td class="style1">
-                        Email
-                    </td>
-<td>
-<input id="ctl00_ContentPlaceHolder1_Comments1_txtEmail" name="ctl00$ContentPlaceHolder1$Comments1$txtEmail" type="text"/>
-</td>
-</tr>
-<tr class="rowstyle">
-<td class="style1">
-                        Comment   
-                    </td>
-<td>
-<textarea cols="20" id="ctl00_ContentPlaceHolder1_Comments1_txtComments" name="ctl00$ContentPlaceHolder1$Comments1$txtComments" rows="2"></textarea>
-</td>
-</tr>
-<tr class="rowstyle">
-<td class="style1"></td>
-<td valign="bottom" width="95%">
-<br/>
-<br/>
-<span id="ctl00_ContentPlaceHolder1_Comments1_lblResult"><b><font color="Blue"></font></b></span>
-<br/>
-<div style="float:left">
-<br/>
-                            
-                            Verify that you are a human not robot, answer the question.<br/>
-<script type="text/javascript"> DrawBotBoot()</script>
-</div>
-<div style="float:right">
-<input id="ctl00_ContentPlaceHolder1_Comments1_btnAddComments" name="ctl00$ContentPlaceHolder1$Comments1$btnAddComments" onclick="if (ValidBotBoot()==false) {alert(ValidBotBoot());} return(ValidBotBoot()); ;" type="submit" value="Send"/>    
-                            </div>
-</td>
-</tr>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-39187146-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<!-- END Google Analytics script -->
+</head>
+<body class="course course-1 notloggedin dir-ltr lang-es_es_utf8 notinpopup" id="site-index">
+<div id="page">
+<a class="skip" href="#maincontent">Ir a contenido principal</a>
+<div class="wrap wraplevel1 " id="header-home">
+<div class="bt" id="header-home-bt"><div> </div></div>
+<div class="i1" id="header-home-i1"><div class="i2" id="header-home-i2"><div class="i3 clearfix" id="header-home-i3"> <!--<h1 class="headermain">OpenCourseWare UGR</h1>-->
+<!--<h1 class="headermain"><img alt='Moodle' src='http://ocw.ugr.es/theme/cevug_ocw/logo.jpg' />OpenCourseWare UGR</h1>   <h1 class="headermain">OpenCourseWare UGR</h1>-->
+<div id="logoscyt"> <div id="logomeducacion"> <div class="headermenu"><div class="logininfo">Ud. no está en el sistema. (<a href="https://ocw.ugr.es/login/index.php">Entrar</a>)</div></div></div></div>
+</div></div></div>
+<div class="bb" id="header-home-bb"><div> </div></div>
+</div> <!-- END OF HEADER -->
+<div class="wrap wraplevel1 " id="content">
+<div class="bt" id="content-bt"><div> </div></div>
+<div class="i1" id="content-i1"><div class="i2" id="content-i2"><div class="i3" id="content-i3">
+<table id="layout-table" summary="layout">
 <tr>
-<td align="right" colspan="2">
-                         </td>
-</tr>
-<tr>
-<td align="left" colspan="2">
-<br/>
-</td>
-</tr>
-</table>
-</td>
-</tr>
-<tr>
-<td><div>
-</div></td>
-</tr>
-</table>
-</div>
-<div class="sys_relatedRight">
-<div id="search-small">
-<link href="../stylesheetcms/unow.css" rel="stylesheet" type="text/css"/>
-<div id="ctl00_ContentPlaceHolder1_searchControl1_Panel1">
-<h2>Search Resources</h2>
-<p>
-<input class="input" id="ctl00_ContentPlaceHolder1_searchControl1_TextBoxKeyword" name="ctl00$ContentPlaceHolder1$searchControl1$TextBoxKeyword" type="text"/>
-<input class="buttom" id="ctl00_ContentPlaceHolder1_searchControl1_keywordsearch" name="ctl00$ContentPlaceHolder1$searchControl1$keywordsearch" type="submit" value="Search"/>
-</p>
-</div>
-<p>
-<a href="/advansearch.aspx">Advanced search</a></p>
-</div>
-<div class="details">
-<p>
-                Technical information:</p>
-</div>
-<div class="content-dl">
-<p>
-                File size:
-                MB</p>
-<p>
-                Rich Media</p>
-<p>
-</p>
-<p id="ctl00_ContentPlaceHolder1_viewresource" style="color: white"><a href="#" onclick="MM_openBrWindow('http://wirksworthii/Podcasts/files/rmg/public/YouTube/live/fbpmullin.mp4','winresource','scrollbars=yes,resizable=yes,width=900,height=670')" style="color:white;">View resource</a></p>
-<p id="ctl00_ContentPlaceHolder1_downloadresource"><a href="termcms.aspx?hid=1c2bca21-c31e-98df-b5a9-33f95130616f&amp;url=http://wirksworthii/Podcasts/files/rmg/public/YouTube/live/fbpmullin.mp4" style="color:white">Download resource</a></p>
-</div>
-<p></p>
-<div class="content-dl">
-</div>
-<div class="content-pod">
-<h3>
-                Related Links</h3>
-<p>Clicking the link below will run a search in the Xpert search engine.</p>
-<p><a href="http://www.nottingham.ac.uk/xpert/scoreresults.php?keywords=King Lear to In the loop : fiction and British politics">King Lear to In the loop : fiction and British politics</a></p>
-</div>
-<div class="content-pod">
-<h3>Youtube Links</h3>
-<p>The resources that appear below are dependent on search results provided by Youtube.</p>
-<div id="videoResultsDiv">
-</div>
-</div>
-<div class="content-pod">
-<h3>
-                Useful Links</h3>
-</div>
-<div class="content-pod">
-<h3>
-                Publisher/Author</h3>
-<p>
-<p></p>University of Nottingham. Information Services. Learning Team<p></p>Chris Mullen
-            </p>
-</div>
-<br/>
-<br/>
-</div>
-</div>
-</div>
-</div>
-<!--creative commons statement -->
-<div id="bottom-cc">
-<div id="copyright">
-<div id="copyright-logo">
-<a href="http://creativecommons.org/licenses/by-nc-sa/2.0/uk/ " target="_blank">
-<img alt="creative commons - Some right reserved" border="0" height="31" src="/imagecms/cclogo.gif" width="88"/></a>
-</div>
-<div id="copyright-stat">
-<p>
-<a href="http://unow.nottingham.ac.uk/policy.aspx" target="_blank">
-                                                Takedown Policy</a> | Except for third party materials (materials owned by 
-                                                someone other than The University of Nottingham) and where otherwise indicated, 
-                                                the copyright in the content provided on this site is owned by The University of 
-                                                Nottingham and licensed under a <a href="http://www.creativecommons.org/licenses/by-nc-sa/2.0/uk/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike UK 2.0 
-                                                Licence (BY-NC-SA)</a> </p>
-<p>
-                                                Your use of the content provided on this site is subject to the terms of the 
-                                                copyright statement available here:<a href="http://unow.nottingham.ac.uk/copyrightcms.aspx" target="_blank"> Copyright</a>
-</p>
-</div>
-</div>
-</div>
-<div id="bottom">
-<div class="sys_content">
-<h2>
-                                            U-Now Open Courseware</h2>
-<p class="sys_left">
-                                            The University of Nottingham<br>
-                                            King's Meadow Campus<br>
-                                            Nottingham NG7 2NR</br></br></p>
-<p class="sys_right">
-<strong>email:</strong> <a href="mailto:enquiries@nottingham.ac.uk">
-                                            is-learning-team@nottingham.ac.uk</a></p>
-</div>
-<div class="sys_corners">
-<!-- //-->
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<p>
-                     </p>
-<div id="footer">
-<ul>
-<li><a class="sys_0 sys_t32003" href="http://unow.nottingham.ac.uk/copyrightcms.aspx" title="Copyright">
-                            Copyright</a>
-</li>
-<li><a class="sys_0 sys_t32003" href="http://creativecommons.org/licenses/by-nc-sa/2.0/uk/legalcode" title="Terms and Conditions">Terms &amp; Conditions</a> </li>
-<li><a class="sys_0 sys_t32003" href="http://www.nottingham.ac.uk/utilities/privacy.aspx" title="Privacy">Privacy</a> </li>
-<li><a class="sys_0 sys_t32003" href="http://www.nottingham.ac.uk/utilities/accessibility/accessibility.aspx" title="Accessibility">Accessibility</a> </li>
-<li class="sys_last"><a href="http://www.nottingham.ac.uk/freedom-of-information/" title="http://www.nottingham.ac.uk/utilities/foi.aspx">Freedom of Information</a>
-</li>
+<div class="wrap wraplevel2 ">
+<div class="bt"><div> </div></div>
+<div class="i1"><div class="i2"><div class="i3"><a class="skip-block" href="#sb-1">Saltar Sindicación de Cursos</a><div class="block_html sideblock" id="inst46"><div class="wrap">
+<div class="header"><div class="bt"><div> </div></div><div class="i1"><div class="i2"><div class="i3"><div class="title"><input alt="Ocultar bloque Sindicación de Cursos" class="hide-show-image" id="togglehide_inst46" onclick="elementToggleHide(this, true, function(el) {return findParentNode(el, 'DIV', 'sideblock'); }, 'Mostrar bloque Sindicación de Cursos', 'Ocultar bloque Sindicación de Cursos'); return false;" src="http://ocw.ugr.es/theme/cevug_ocw/pix/t/switch_minus.gif" title="Ocultar bloque Sindicación de Cursos" type="image"/><h2>Sindicación de Cursos</h2></div></div></div></div></div><div class="i1"><div class="i2"><div class="i3"><div class="content"> <a href="http://ocw.ugr.es/file.php/1/opencoursewareugr.xml" target="_top"> <acronym title="Really Simple Syndication">RSS</acronym> </a> </div></div></div></div><div class="bb"><div> </div></div></div></div><script type="text/javascript">
+//<![CDATA[
+elementCookieHide("inst46","Mostrar bloque Sindicación de Cursos","Ocultar bloque Sindicación de Cursos");
+//]]>
+</script><a class="skip-block" href="#sb-2">Saltar Categorías de cursos</a><div class="block_course_list sideblock" id="inst15"><div class="wrap">
+<div class="header"><div class="bt"><div> </div></div><div class="i1"><div class="i2"><div class="i3"><div class="title"><input alt="Ocultar bloque Categorías de cursos" class="hide-show-image" id="togglehide_inst15" onclick="elementToggleHide(this, true, function(el) {return findParentNode(el, 'DIV', 'sideblock'); }, 'Mostrar bloque Categorías de cursos', 'Ocultar bloque Categorías de cursos'); return false;" src="http://ocw.ugr.es/theme/cevug_ocw/pix/t/switch_minus.gif" title="Ocultar bloque Categorías de cursos" type="image"/><h2>Categorías de cursos</h2></div></div></div></div></div><div class="i1"><div class="i2"><div class="i3"><div class="content">
+<ul class="list">
+<li class="r0"><div class="icon column c0"></div><div class="column c1"><a href="http://ocw.ugr.es/course/category.php?id=5">Arte y Humanidades</a></div></li>
+<li class="r1"><div class="icon column c0"></div><div class="column c1"><a href="http://ocw.ugr.es/course/category.php?id=4">Ciencias</a></div></li>
+<li class="r0"><div class="icon column c0"></div><div class="column c1"><a href="http://ocw.ugr.es/course/category.php?id=3">Ciencias de la salud</a></div></li>
+<li class="r1"><div class="icon column c0"></div><div class="column c1"><a href="http://ocw.ugr.es/course/category.php?id=1">Ciencias sociales y jurídicas</a></div></li>
+<li class="r0"><div class="icon column c0"></div><div class="column c1"><a href="http://ocw.ugr.es/course/category.php?id=2">Arquitectura e Ingeniería</a></div></li>
+<li class="r1"><div class="icon column c0"></div><div class="column c1"><a href="http://ocw.ugr.es/course/category.php?id=9">Tecnologías de la Información y la Comunicación (TIC)</a></div></li>
+<li class="r0"><div class="icon column c0"></div><div class="column c1"><a href="http://ocw.ugr.es/course/category.php?id=11">Taller OCW julio 2010 (3ª edición)</a></div></li>
+<li class="r1"><div class="icon column c0"></div><div class="column c1"><a href="http://ocw.ugr.es/course/category.php?id=12">Taller OCW diciembre 2010 (4ª edición)</a></div></li>
+<li class="r0"><div class="icon column c0"></div><div class="column c1"><a href="http://ocw.ugr.es/course/category.php?id=13">Taller OCW diciembre 2010 (5ª edición)</a></div></li>
+<li class="r1"><div class="icon column c0"></div><div class="column c1"><a href="http://ocw.ugr.es/course/category.php?id=14">Taller Recursos Educativos en Abierto (OER) 1ª Edición </a></div></li>
+<li class="r0"><div class="icon column c0"></div><div class="column c1"><a href="http://ocw.ugr.es/course/category.php?id=15">Taller Recursos Educativos en Abierto (OER) 2ª Edición</a></div></li>
 </ul>
+</div></div></div></div><div class="bb"><div> </div></div></div></div><script type="text/javascript">
+//<![CDATA[
+elementCookieHide("inst15","Mostrar bloque Categorías de cursos","Ocultar bloque Categorías de cursos");
+//]]>
+</script></div></div></div>
+<div class="bb"><div> </div></div>
+</div><div class="wrap wraplevel2 ">
+<div class="bt"><div> </div></div>
+<div class="i1"><div class="i2"><div class="i3"><div class="wrap wraplevel3 generalbox sitetopic ccbox box">
+<div class="bt"><div> </div></div>
+<div class="i1"><div class="i2"><div class="i3"> <style type="text/css"></style><h3 style="color: rgb(0, 102, 153);">Bienvenidos al sitio OpenCourseWare (OCW) del Centro de Enseñanzas Virtuales de la Universidad de Granada.</h3>Con este sitio promovemos la publicación en abierto del conocimiento, generado por nuestros docentes e investigadores, a toda la sociedad.Mediante la licencia "Creative Commons" se le proporciona acceso libre y sin restricciones al material estructurado en distintas áreas de conocimiento. Este proyecto forma parte de una iniciativa internacional de origen en el <a href="http://ocw.mit.edu/OcwWeb/web/home/home/index.htm">Instituto Tecnológico de Massachussets (MIT) </a>en 2001, encontrándonos plenamente inmersos en el <a href="http://www.ocwconsortium.org/">Consorcio OpenCourseWare</a> promovido en el ámbito hispanohablante por<a href="http://ocw.universia.net/es/"> Universia</a>. Esta iniciativa <strong>no lleva </strong>a la consecución de estudios ni titulaciones regladas del <a href="http://cevug.ugr.es/" target="_blank">CEVUG</a> ni de la Universidad de Granada. <strong style="color: rgb(51, 153, 0);">Sí permite</strong> la difusión gratuita y universal del conocimiento. <p style="font-weight: bold;">Derechos de autor Los docentes e investigadores autores de los materiales aquí publicados declaran expresamente que tales materiales son de su propiedad intelectual u ostentan título suficiente para su uso y explotación, habiendo concedido tales personas las licencias apropiadas para poder disponer del material en este sitio OpenCourseWare. Para más información vaya al apartado "<font color="#ff3300"><a href="http://ocw.ugr.es/file.php/1/Informacion_Legal_OCW_UGR_.pdf" target="_blank">Información Legal</a></font>".   <table border="1" cellpadding="1" cellspacing="1" width="100%"><tbody> <tr> <a href="http://www.ugr.es/" target="_blank" title="Universidad de Granada"></a> <a href="http://cevug.ugr.es" target="_blank" title="Centro de Enseñanzas Virtuales"></a>  <a href="http://www.ugr.es/" target="_blank" title="Universidad de Granada"></a> <br/>  <a href="http://cevug.ugr.es/" target="_blank" title="Centro de Ensñanzas Virtuales"></a> <a href="http://www.ugr.es" target="_blank" title="Universidad de Granada"></a>  </tr></tbody> </table></p></div></div></div>
+<div class="bb"><div> </div></div>
+</div><br/></div></div></div>
+<div class="bb"><div> </div></div>
 </div>
-</div>
-<br/>
-<br/>
-</div>
-</div>
-</form>
+</tr>
+</table>
+
+﻿</div></div></div>
+<div class="bb" id="content-bb"><div> </div></div>
+</div><!-- end container Content -->
+<!-- START OF FOOTER -->
+<div class="wrap wraplevel1 " id="footer">
+<div class="bt" id="footer-bt"><div> </div></div>
+<div class="i1" id="footer-i1"><div class="i2" id="footer-i2"><div class="i3" id="footer-i3"><p class="direccion"><div class="footer_title">OpenCourseWare UGR.</div><p class="helplink"><a href="http://creativecommons.org/licenses/by-nc-sa/3.0/es/"></a><a href="http://ocw.universia.net/"></a><a href="http://www.ocwconsortium.org/"></a></p></p></div></div></div>
+<div class="bb" id="footer-bb"><div> </div></div>
+</div></div> <!-- end page div -->
+<div class="internea"></div>
+<script type="text/javascript">
+/* <![CDATA[ */
+    script.init();
+/* ]]> */
+</script>
 </body>
 </html>

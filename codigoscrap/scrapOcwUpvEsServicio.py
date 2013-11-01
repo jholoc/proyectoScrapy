@@ -4,6 +4,7 @@ from bs4 import *
 from urllib import urlopen
 from bd import *
 import unicodedata
+import requests
 import sys
 reload(sys)
 sys.setdefaultencoding("utf-8")
@@ -36,31 +37,34 @@ def extraerextoer(urlmenu):
     return url[len(url)-1]
 
 
-tabla='CursosUmEs'
 
+tabla='CursosUpvEs'
 
 ObjBd = BDdatos()
-datos=ObjBd.CursosOcwUmEs()
-urlscrap='http://ocw.mit.edu/courses/mechanical-engineering/2-29-numerical-fluid-mechanics-fall-2011'
+datos=ObjBd.CursosOcwUpvEs()
 for cont,x in enumerate(datos):
-    if cont!=0 : 
-
+    if cont!=0 : #108 http://ocw.um.es/ciencias/limnologia-regional
         continue
-    urlscrap=x[0]
+    ScrapUpvEs(x[0],tabla)
+    
+def ScrapUpvEs(UrlCurso,tabla):
+    urlscrap=UrlCurso
     print '%s  %s'%(cont,urlscrap)  
     ObjBd.insertar_datos_trip(urlscrap,'link',urlscrap,tabla)#insertar en la bd Link
     ObjBd.insertar_datos_trip(urlscrap,'rdf:type','ocw',tabla)#insertar en la bd type
 
     webpage1 = urlopen(urlscrap).read() #lectura de la pagina a scrapear 
-    webpage1 = webpage1.replace('<p>','').replace('</p>','').replace('<br>','')
+    urlMenu2 = requests.get(urlscrap)
+    print urlMenu2.text
     soup1 = BeautifulSoup(webpage1)
-    tiSoup = soup1.select("dl#portlet-simple-nav > dd.portletItem")#selecion de la pagina que contiene los titulos de las noticias
-
+    tiSoup = soup1.select("table.upv_lista")#selecion de la pagina que contiene los titulos de las noticias
+    print tiSoup
     banderaOer=False
 
     for i in tiSoup:
         tituloMenu=i.a.text.strip()
         urlMenu=unionurl(urlscrap,i.a.get('href'))
+        print urlMenu
         
         ObjBd.insertar_datos_trip(urlscrap,'menu',urlMenu,tabla)
         ObjBd.insertar_datos_trip(urlMenu,'link',urlMenu,tabla)
@@ -69,19 +73,22 @@ for cont,x in enumerate(datos):
         nombreMenu=extraernombremenu(urlMenu)
         ObjBd.insertar_datos_trip(urlMenu,'rdf:type',nombreMenu,tabla)
         
+        
         webpage2=urlopen(urlMenu).read()
-        webpage2 = webpage2.replace.replace('<strong>','').replace('</strong>','')#('<p>','').replace('</p>','')
-        soup2=BeautifulSoup(webpage2)#
-        htmlCurso = soup2.select('#content')#html del curso
+        soup2=BeautifulSoup(webpage2)
+        htmlCurso = soup2.select('#contenido')#html del curso
 
+        
 
 
         ObjBd.insertar_datos_trip(urlMenu,'html',str(htmlCurso),tabla)
 
+
         if htmlCurso == []:
             continue
 
-        hrefs= htmlCurso[0].find_all(href=re.compile("\.(pdf|mp3|mp4|zip|tar|gz|html|xls|xlsx|doc|docx|ppt|pptx|flv)$"))
+        hrefs= htmlCurso[0].find_all(href=re.compile("(\.(pdf|mp3|mp4|zip|tar|gz|html|htm|xls|xlsx|doc|docx|odt|ppt|pptx|XLS|DOCX|PPTX)$)"))
+        
         if hrefs!=[]:
             banderaOer=True
             ObjBd.insertar_datos_trip(urlMenu,'existenOer','1',tabla)
@@ -106,7 +113,7 @@ for cont,x in enumerate(datos):
                     pass
                 else:
                     htmlOer=aux.parent # html del oer
-                    descripOer=removersignos(aux.text).strip()#
+                    descripOer=removersignos(aux.text).strip()
 
             else:
                 htmlOer=aux.parent
@@ -128,6 +135,8 @@ for cont,x in enumerate(datos):
 
 
     if banderaOer==True:
+        pass
+        #print 'SI HAY OERS'
         ObjBd.insertar_datos_trip(urlscrap,'existenOer','1',tabla)
     else:
         print 'NO HAY OERS'

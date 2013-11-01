@@ -49,16 +49,10 @@ def ViewContenido(urlscrap,descripOer,extoer,htmlOer):
             LicenciaOer= soup1.select('#copyrightDocumentByLine')[0]
             LicenciaOer=str(LicenciaOer.text).strip()
             LinkLicencia= soup1.select('#copyright-button')[0]
-            #print LinkLicencia.find('a')
             if LinkLicencia.find('a')!=None:
                 LinkLicencia= LinkLicencia.a.get('href')
             else:
                 LinkLicencia='No existe'
-            
-            #print '                %s'%TituloOer
-            #print '                %s'%AutorOer
-            #print '                %s'%LinkLicencia
-            #print '                %s'%LicenciaOer[0:20]
             
 
             ObjBd.insertar_datos_trip(urlscrap,'link',UrlOer,tabla)
@@ -87,7 +81,7 @@ urlscrap='http://ocw.uc3m.es/ingenieria-telematica/telematica'
 
 for cont,x in enumerate(datos):
 
-    if cont<181: #http://ocw.uc3m.es/ingenieria-informatica/ingenieria-de-la-informacion
+    if cont<0: 
         continue
     urlscrap=x[0]
     print '%s  %s'%(cont,urlscrap)
@@ -116,13 +110,18 @@ for cont,x in enumerate(datos):
         patron=re.compile('/view$')
         M=re.findall(patron,urlMenu)
         if M!=[]:
-            ObjBd.insertar_datos_trip(urlscrap,'oer',urlMenu,tabla)
+            ObjBd.insertar_datos_trip(urlscrap,'menu',urlMenu,tabla)
+            ObjBd.insertar_datos_trip(urlMenu,'link',urlMenu,tabla)
+            ObjBd.insertar_datos_trip(urlMenu,'title',tituloMenu,tabla)
+            ObjBd.insertar_datos_trip(urlMenu,'rdf:type','menu',tabla)
+            nombreMenu=extraernombremenu(urlMenu)
+            ObjBd.insertar_datos_trip(urlMenu,'rdf:type',nombreMenu,tabla)
+            
+            ObjBd.insertar_datos_trip(urlMenu,'oer',urlMenu,tabla)
 
             ViewContenido(urlMenu,tituloMenu,'zip',i)
             continue
 
-        #print tituloMenu
-        #print urlMenu
 
         ObjBd.insertar_datos_trip(urlscrap,'menu',urlMenu,tabla)
         ObjBd.insertar_datos_trip(urlMenu,'link',urlMenu,tabla)
@@ -144,17 +143,15 @@ for cont,x in enumerate(datos):
         ObjBd.insertar_datos_trip(urlMenu,'html',htmlCurso,tabla)
 
         if soup2==None:
-            #print 'No hay Oers'
             ObjBd.insertar_datos_trip(urlMenu,'existenOer','0',tabla)
             continue
         hrefs= soup2.find_all(href=re.compile("((http://ocw.uc3m.es)\w\.|/view)$"))
 
         if hrefs!=[]:
-            #print 'Si hay oer'
             banderaOer=True
             ObjBd.insertar_datos_trip(urlMenu,'existenOer','1',tabla)
         else:
-            #print 'No hay Oers'
+
             ObjBd.insertar_datos_trip(urlMenu,'existenOer','0',tabla)
 
         for href in hrefs:
@@ -163,7 +160,7 @@ for cont,x in enumerate(datos):
                 if str(aux)[0]=='<':
                     if str(aux)[1]=='a':
                         break
-                        #aux=''
+
                     else:
                         if str(aux)[1]=='t' or str(aux)[1]=='i'or str(aux)[1]=='s' or str(aux)[1]=='e' or str(aux)[1]=='p':
                             aux=aux.previous_element
@@ -177,28 +174,19 @@ for cont,x in enumerate(datos):
                     pass
                 else:
                     htmlOer=aux.parent # html del oer
-                    descripOer=removersignos(aux.text).strip() #aux.text
-                    #print '    %s'% descripOer
+                    descripOer=removersignos(aux.text).strip()
             else:
                 htmlOer=aux.parent
-                descripOer=removersignos(aux).strip() #aux
-                #print '   %s'%descripOer
+                descripOer=removersignos(aux).strip() 
 
             textoOer=href.text.strip()#es el tipo de oer(pdf,zip,etc)
-            urlOer=unionurl(urlscrap,href.get('href'))#unionurl(urlscrap,href.get('href').strip('/at_download/file').strip('/view'))
-            #print htmlOer
-            #print '            %s'%descripOer
-            #print '            %s'%textoOer
-            #print '            %s'%urlOer #href.get('href').strip('/at_download/file').strip('/view')
-
-
+            urlOer=unionurl(urlscrap,href.get('href'))
 
             ObjBd.insertar_datos_trip(urlMenu,'oer',urlOer,tabla)
             
             ViewContenido(urlOer,descripOer,textoOer,htmlOer)
 
     if banderaOer==True:
-        #print 'SI HAY OERS'
         ObjBd.insertar_datos_trip(urlscrap,'existenOer','1',tabla)
     else:
         print 'NO HAY OERS'
