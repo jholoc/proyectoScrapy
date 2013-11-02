@@ -78,7 +78,7 @@ url4='http://140.116.203.51/tlcenter/fireenergy/pdf_20101025.rar'
 url4='http://open.agh.edu.pl/mod/resource/view.php?inpopup=true&id=999'
 url4='http://ocw.ugr.es/mod/resource/view.php?id=583'
 url4='http://ocw.ugr.es/file.php/20/relacion-aritmetica-entera.pdf?forcedownload=1'
-url4='http://ocw.korea.edu/ocw/college-of-engineering/electronic-circuits-i/lecture-notes-1/midterm-project'
+url4='http://ocw.uv.es/artes-y-humanidades/narrativa-breve-de-los-estados-unidos/narrativa-breve-de-los-estados-unidos.zip'
 print url4
 """url5 = requests.get(url3)
 print url5.url
