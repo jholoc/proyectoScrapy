@@ -68,7 +68,7 @@ def identificarOer(url):
         return identificarOer2(url)
 
 def identificarOer2(url):
-    patron = re.compile("(\.(pdf|mp3|mp4|wmv|zip|rar|tar|gz|htm|xls|xlsx|doc|docx|odt|pps|ppt|pptx|XLS|DOCX|PPTX|jpg|gif|ISO|iso|epv|mobipocket|swf|jar)$)")
+    patron = re.compile("(\.(pdf|mp3|mp4|wmv|zip|rar|tar|gz|htm|xls|xlsx|doc|docx|odt|pps|ppt|pptx|XLS|DOCX|PPTX|jpg|gif|ISO|iso|epv|mobipocket|swf|jar|avi|txt)$)")
     if "http://www.youtube.com/watch" in url:
         return'video Youtube'
     busqueda=patron.search(url)
@@ -452,7 +452,7 @@ def ScrapInnovaUnedEs(UrlCurso,tabla):
     estructuraContenido=['#portlet-eduCommonsNavigation > div.unSelected > a','.plain','#content']
     ScrapPaginasConMenu(UrlCurso,tabla,estructuraContenido)
 #ocw.ie.edu
-def ScrapInnovaUnedEs(UrlCurso,tabla):
+def ScrapIeEdu(UrlCurso,tabla):
     estructuraContenido=['#portlet-eduCommonsNavigation > div.unSelected > a','.plain','#content']
     ScrapPaginasConMenu(UrlCurso,tabla,estructuraContenido)
 #ocw.flacso.edu.mx:8080
