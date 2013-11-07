@@ -68,11 +68,7 @@ def identificarOer(url):
         return identificarOer2(url)
 
 def identificarOer2(url):
-<<<<<<< HEAD
-    patron = re.compile("(\.(pdf|mp3|mp4|wmv|zip|rar|tar|gz|htm|xls|xlsx|doc|docx|odt|pps|ppt|pptx|XLS|DOCX|PPTX|jpg|gif|ISO|iso|epv|mobipocket|swf|jar|avi|AVI)$)")
-=======
-    patron = re.compile("(\.(pdf|mp3|mp4|wmv|zip|rar|tar|gz|htm|xls|xlsx|doc|docx|odt|pps|ppt|pptx|XLS|DOCX|PPTX|jpg|gif|ISO|iso|epv|mobipocket|swf|jar|avi|txt)$)")
->>>>>>> 91f7aa26d6d30d360dddea32ab073b142b14044d
+    patron = re.compile("(\.(pdf|mp3|mp4|wmv|zip|rar|tar|gz|htm|xls|xlsx|doc|docx|odt|pps|ppt|pptx|XLS|DOCX|PPTX|jpg|gif|ISO|iso|epv|mobipocket|swf|jar|avi|AVI|mpg)$)")
     if "http://www.youtube.com/watch" in url:
         return'video Youtube'
     busqueda=patron.search(url)
@@ -609,7 +605,7 @@ ObjBd = BDdatos()
 datos=ObjBd.CursosUniversia()
 
 for cont,urlcurso in enumerate(datos):
-    if cont<2735:
+    if cont<2748:
         continue
     url=urlcurso[0]
     print cont

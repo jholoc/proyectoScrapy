@@ -68,7 +68,7 @@ class Scrap():
             return self.identificarOer2(url)
 
     def identificarOer2(self,url):
-        patron = re.compile("(\.(pdf|mp3|mp4|mov|wmv|zip|rar|tar|gz|htm|xls|xlsx|doc|docx|odt|pps|ppt|pptx|XLS|DOCX|PPTX|jpg|gif|ISO|iso|epv|mobipocket|swf|jar|avi|AVI |txt)$)")
+        patron = re.compile("(\.(pdf|mp3|mp4|mov|wmv|zip|rar|tar|gz|htm|xls|xlsx|doc|docx|odt|pps|ppt|pptx|XLS|DOCX|PPTX|jpg|gif|ISO|iso|epv|mobipocket|swf|jar|avi|AVI |txt|mpg)$)")
         if "http://www.youtube.com/watch" in url:
             return'video Youtube'
         busqueda=patron.search(url)
@@ -300,7 +300,41 @@ class Scrap():
                     ObjBd.insertar_datos_trip(urlOer,'html',str(htmlOer),tabla)
                     ObjBd.insertar_datos_trip(urlOer,'rdf:type','oer',tabla)
                     ObjBd.insertar_datos_trip(urlOer,'rdf:type',extoer,tabla)
+    def ScrapUci(self,urlscrap,tabla):
+        print '%s'%(urlscrap)  
+        ObjBd.insertar_datos_trip(urlscrap,'link',urlscrap,tabla)#insertar en la bd Link
+        ObjBd.insertar_datos_trip(urlscrap,'rdf:type','ocw',tabla)#insertar en la bd type
 
+        webpage1 = urlopen(urlscrap).read() #lectura de la pagina a scrapear 
+        soup1 = BeautifulSoup(webpage1)
+        htmlcurso=soup1.select('div.columnleft_nomiddle')
+        ViSoup = soup1.select('iframe')
+
+        ObjBd.insertar_datos_trip(urlscrap,'html',str(htmlcurso),tabla)
+
+
+        if ViSoup != []:
+            urlvi=ViSoup[0].get('src')
+            if urlvi.find('embed/')<0:
+                pass
+            else:
+                urlvi=urlvi.replace('embed/','watch?v=')
+
+                webpage2=urlopen(urlvi).read()
+                soup2=BeautifulSoup(webpage2)
+                titulosoup = soup2.select('#eow-title')
+                titulo=titulosoup[0].text
+                descipcionsoup= soup2.select('#eow-description')
+                descipcion= descipcionsoup[0].text
+
+                ObjBd.insertar_datos_trip(urlscrap,'oer',urlvi,tabla)
+                ObjBd.insertar_datos_trip(urlvi,'link',urlvi,tabla)
+                ObjBd.insertar_datos_trip(urlvi,'title',titulo ,tabla)
+                ObjBd.insertar_datos_trip(urlvi,'description',descipcion,tabla)
+                ObjBd.insertar_datos_trip(urlvi,'html',str(webpage2),tabla)
+
+                ObjBd.insertar_datos_trip(urlvi,'rdf:type','oer',tabla)
+                ObjBd.insertar_datos_trip(urlvi,'rdf:type','video',tabla)
 
 
     #www.upv.es
@@ -520,8 +554,8 @@ class Scrap():
         self.ScrapPaginasConMenu(UrlCurso,tabla,estructuraContenido)
     #ocw.uci.edu
     def ScrapUCiEdu(self,UrlCurso,tabla):
-        estructuraContenido=[' > a','#middle-column','#middle-column']
-        self.ScrapPaginasConMenu(UrlCurso,tabla,estructuraContenido)
+        #estructuraContenido=[' > a','#middle-column','#middle-column']
+        self.ScrapUci(UrlCurso,tabla)
     #opencontent.uct.ac.za   
     def ScrapUctAcZa(self,UrlCurso,tabla):
         estructuraContenido=['div.weblinks-linkview > a','body','body']
@@ -560,12 +594,12 @@ class Scrap():
         self.ScrapPaginasConMenu(UrlCurso,tabla,estructuraContenido)
     #open.agh.edu.pl
     def ScrapaghEduPl(self,UrlCurso,tabla):
-        estructuraContenido=['#middle-column','#middle-column'] #ojo
+        estructuraContenido=['#middle-column','#middle-column'] 
         self.ScrapPaginasSinMenu(UrlCurso,tabla,estructuraContenido)
     #yct.ncku.edu.tw 
     def ScrapNckuEduTw(self,UrlCurso,tabla):
         estructuraContenido=['div.module-content','div.module-content']
-        self.ScrapPaginasSinnMenu(UrlCurso,tabla,estructuraContenido)
+        self.ScrapPaginasSinMenu(UrlCurso,tabla,estructuraContenido)
     #ocw.nd.edu  
     def ScrapNdEdu(self,UrlCurso,tabla):
         estructuraContenido=['dl#portlet-simple-nav dd.portletItem > a','#content','#content']
@@ -633,7 +667,7 @@ class Scrap():
     #ocw.njit.edu    
     def ScrapNjitEdu(self,UrlCurso,tabla):
         estructuraContenido=['div.colright','div.colright']
-        self.ScrapPaginasConMenu(UrlCurso,tabla,estructuraContenido)
+        self.ScrapPaginasSinMenu(UrlCurso,tabla,estructuraContenido)
     #ocw.tudelft.nl
     def ScrapTudelftNl(self,UrlCurso,tabla):
         estructuraContenido=['div#contentMenu > ul > li > ul > li > a','#contentText','#contentText']
@@ -749,7 +783,7 @@ class Scrap():
         ObjBd.insertar_datos_trip(UrlCurso,'error','Pagina informativa',tabla)
     #labspace.open.ac.uk 
     def ScrapOpenAcUk(self,UrlCurso,tabla):
-        estructuraContenido=['#middle-column','#middle-column']#ojo
+        estructuraContenido=['#middle-column','#middle-column']
         self.ScrapPaginasSinMenu(UrlCurso,tabla,estructuraContenido)
     #opencourse.ndhu.edu.tw  
     def ScrapNdhuEduTw(self,UrlCurso,tabla):
