@@ -6,7 +6,10 @@ from bd import *
 import unicodedata
 import sys
 import urllib
+import urllib2
+from urlparse import urljoin
 reload(sys)
+
 sys.setdefaultencoding("utf-8")
 ObjBd = BDdatos()
 class Scrap():
@@ -41,12 +44,15 @@ class Scrap():
                 return urloer+'&redirect=1'
             return urloer
         else:
-            if urlpag[len(urlpag)-1]=='/':
+            """if urlpag[len(urlpag)-1]=='/':
                 urlpag=urlpag[0:len(urlpag)-1]
             list1= urlpag.strip().split('/')
             list2= urloer.strip().split('/')
             list1.extend([element for element in list2 if element not in list1])
             union= '/'.join(list1)
+            if urloer[len(urloer)-1]=='/':
+                union=union+'/'"""
+            union=urljoin(urlpag,urloer)
             return union
     def extraernombremenu(self,urlmenu):
         url=urlmenu.split('/')
@@ -68,7 +74,7 @@ class Scrap():
             return self.identificarOer2(url)
 
     def identificarOer2(self,url):
-        patron = re.compile("(\.(pdf|mp3|mp4|mov|wmv|zip|rar|tar|gz|htm|xls|xlsx|doc|docx|odt|pps|ppt|pptx|XLS|DOCX|PPTX|jpg|gif|ISO|iso|epv|mobipocket|swf|jar|avi|AVI |txt|mpg)$)")
+        patron = re.compile("(\.(pdf|mp3|mp4|MP4|mov|wmv|flv|zip|rar|tar|gz|htm|xls|xlsx|doc|docx|odt|odp|pps|ppt|pptx|XLS|DOCX|PPTX|jpg|gif|ISO|iso|epv|mobipocket|swf|jar|avi|AVI|txt|mpg|tar|gz|dwg|tgz|exe|EXE)$)", re.IGNORECASE)
         if "http://www.youtube.com/watch" in url:
             return'video Youtube'
         busqueda=patron.search(url)
@@ -95,6 +101,8 @@ class Scrap():
                     return 'wmv'
                 elif infoUrl=='video/x-ms-asf':
                     return 'asf'
+                elif infoUrl=='video/quicktime':
+                    return 'mov'
                 else:
                     return '0'
             else:
@@ -142,7 +150,7 @@ class Scrap():
         ObjBd.insertar_datos_trip(urlscrap,'rdf:type','ocw',tabla)#insertar en la bd type
         try:
             if 'http://ocw.ua.es' in urlscrap:
-                webpage1 = urlopen(urlscrap).read() #lectura de la pagina a scrapear
+                webpage1 = urllib2.urlopen(urlscrap,timeout=20).read() #lectura de la pagina a scrapear
                 soup1 = BeautifulSoup(webpage1)
 
                 urlscrap2 = soup1.select("script")[0].text.split('"')[1]#abrir la redireccion 
@@ -168,8 +176,6 @@ class Scrap():
 
             if htmlCurso==[]:
                 htmlCurso = soup1.select(estructuraContenido[1])#  '#content' html del curso
-            if htmlCurso==[]: 
-                ObjBd.insertar_datos_trip(urlscrap,'html',str(htmlCurso[0]),tabla)
             if htmlCurso!=[]:
                 hrefs= htmlCurso[0].find_all('a', href=True)
                 for href in hrefs:
@@ -210,7 +216,7 @@ class Scrap():
         ObjBd.insertar_datos_trip(urlscrap,'link',urlscrap,tabla)#insertar en la bd Link
         ObjBd.insertar_datos_trip(urlscrap,'rdf:type','ocw',tabla)#insertar en la bd type
         try:
-            webpage1 = urlopen(urlscrap).read() #lectura de la pagina a scrapear 
+            webpage1 = urllib2.urlopen(urlscrap,timeout=20).read() #lectura de la pagina a scrapear 
             webpage1 = webpage1.replace('<p>','').replace('</p>','').replace('<br>','')
             soup1 = BeautifulSoup(webpage1)
             tiSoup = soup1.select(estructuraContenido[0])# "table.upv_lista"  selecion de la pagina que contiene los titulos de las noticias
@@ -221,8 +227,11 @@ class Scrap():
         if continuar==True:
             for i in tiSoup:
                 tituloMenu=i.text.strip()
-                urlMenu=self.unionurl(urlscrap,i.get('href'))
                 
+                urlMenu=self.unionurl(requests.get(urlscrap).url,i.get('href'))
+                #urlMenu=self.unionurl(urlscrap,i.get('href'))
+                if urlscrap== urlMenu:
+                    continue    
                 ObjBd.insertar_datos_trip(urlscrap,'menu',urlMenu,tabla)
                 ObjBd.insertar_datos_trip(urlMenu,'link',urlMenu,tabla)
                 ObjBd.insertar_datos_trip(urlMenu,'title',tituloMenu,tabla)
@@ -233,11 +242,18 @@ class Scrap():
                 #print tituloMenu
                 print '    %s'%urlMenu
                 urlMenu= unicodedata.normalize('NFKD', urlMenu).encode('ascii','ignore')
-                webpage2=urlopen(urlMenu).read()
-                #webpage2 = webpage2.replace('<p>','').replace('</p>','')
-                webpage2=requests.get(urlMenu).text
-                soup2=BeautifulSoup(webpage2)
-                htmlCurso = soup2.select(estructuraContenido[1])# '.mwc_contenido'  html del curso
+                patron = re.compile("(\.(tgz|pdf|mp3|mp4|MP4|mov|wmv|flv|zip|rar|tar|gz|htm|xls|xlsx|doc|docx|odt|pps|ppt|pptx|XLS|DOCX|PPTX|jpg|gif|ISO|iso|epv|mobipocket|swf|jar|avi|AVI|txt|mpg|MPG|dwg|tg|exe|EXE)$)",re.IGNORECASE)
+                busqueda=patron.search(urlMenu)
+                if busqueda!=None:
+                    continue 
+                try:
+                    webpage2=urllib2.urlopen(urlMenu,timeout=20).read()
+                    #webpage2 = webpage2.replace('<p>','').replace('</p>','')
+                    webpage2=requests.get(urlMenu).text
+                    soup2=BeautifulSoup(webpage2)
+                    htmlCurso = soup2.select(estructuraContenido[1])# '.mwc_contenido'  html del curso
+                except Exception, e:
+                    continue
 
                 if htmlCurso==[]:
                     htmlCurso = soup2.select(estructuraContenido[2])#  '#content' html del curso
@@ -263,13 +279,23 @@ class Scrap():
                         if busqueda!=None:
                             webpage3=urlopen(urlOer).read()
                             soup3=BeautifulSoup(webpage3)
+                            self.eliminaTags(soup3,'td')
+                            self.eliminaTags(soup3,'span')
+                            self.eliminaTags(soup3,'img')
                             htmlOerView = soup3.select('#region-content')
+                            if htmlOerView==[]:
+                                htmlOerView = soup3.select('#content')
                             textoOer=htmlOerView[0].select('h1')[0].text
                             if textoOer=='Lo sentimos, pero la página no existe…':
                                 urlOer=self.unionurl(urlscrap,href.get('href'))
                                 webpage3=urlopen(urlOer).read()
                                 soup3=BeautifulSoup(webpage3)
+                                self.eliminaTags(soup3,'td')
+                                self.eliminaTags(soup3,'span')
+                                self.eliminaTags(soup3,'img')
                                 htmlOerView = soup3.select('#region-content')
+                                if htmlOerView==[]:
+                                    htmlOerView = soup3.select('#content')
                                 textoOer=htmlOerView[0].select('h1')[0].text
                             #urlOer=htmlOerView[0].select ('.objectMetadata')
                             urlOer=htmlOerView[0].select('p > a')[0].get('href') #find_all('a', href=True)[4].get('href')
@@ -278,6 +304,7 @@ class Scrap():
                         extoer=self.identificarOer(urlOer)
                     except Exception, e:
                         print e
+                        continue
                     
                     if extoer=='0':
                         continue
@@ -791,6 +818,10 @@ class Scrap():
         #self.ScrapPaginasConMenu(UrlCurso,tabla,estructuraContenido)
         print 'Error al Scrapear'
         ObjBd.insertar_datos_trip(UrlCurso,'error','Error al Scrapear',tabla)
+    def ScrapVideolecturesNet(self,UrlCurso,tabla):
+        estructuraContenido=['#vl_seealso','.mod_body']
+        self.ScrapPaginasSinMenu(UrlCurso,tabla,estructuraContenido)
+
     def ScrapUniverdidades(self,linkOcw,tabla):
         Univeridad=linkOcw
         try:
@@ -988,5 +1019,7 @@ class Scrap():
             self.ScrapOpenAcUk(linkOcw,tabla)
         elif Univeridad == 'opencourse.ndhu.edu.tw':
             self.ScrapNdhuEduTw(linkOcw,tabla)
+        elif Univeridad == 'videolectures.net':
+            self.ScrapVideolecturesNet(linkOcw,tabla)  
         else:
             print 'no existe universidad %s'%Univeridad

@@ -66,12 +66,12 @@ for cont,x in enumerate(datos):
         tituloMenu=i.a.text.strip()
         urlMenu=unionurl(urlscrap,i.a.get('href'))
         
-        #ObjBd.insertar_datos_trip(urlscrap,'menu',urlMenu,tabla)
-        #ObjBd.insertar_datos_trip(urlMenu,'link',urlMenu,tabla)
-        #ObjBd.insertar_datos_trip(urlMenu,'title',tituloMenu,tabla)
-        #ObjBd.insertar_datos_trip(urlMenu,'rdf:type','menu',tabla)
+        ObjBd.insertar_datos_trip(urlscrap,'menu',urlMenu,tabla)
+        ObjBd.insertar_datos_trip(urlMenu,'link',urlMenu,tabla)
+        ObjBd.insertar_datos_trip(urlMenu,'title',tituloMenu,tabla)
+        ObjBd.insertar_datos_trip(urlMenu,'rdf:type','menu',tabla)
         nombreMenu=extraernombremenu(urlMenu)
-        #ObjBd.insertar_datos_trip(urlMenu,'rdf:type',nombreMenu,tabla)
+        ObjBd.insertar_datos_trip(urlMenu,'rdf:type',nombreMenu,tabla)
         try:
             ObjBd.insertar_datos(urlscrap,urlMenu,tituloMenu,'','','cursostabla')
         except Exception, e:
@@ -87,7 +87,7 @@ for cont,x in enumerate(datos):
         soup2=BeautifulSoup(webpage2)
         htmlCurso = soup2.select('#course_inner_section')#html del curso
 
-        #ObjBd.insertar_datos_trip(urlMenu,'html',str(htmlCurso),tabla)
+        ObjBd.insertar_datos_trip(urlMenu,'html',str(htmlCurso),tabla)
 
         hrefs= soup2.find_all(href=re.compile("\.(pdf|mp3|mp4|zip|tar|gz|html|xls|xlsx|doc|docx|odt|ppt|pptx|gif)$"))
 
@@ -133,8 +133,8 @@ for cont,x in enumerate(datos):
             #print '            %s'%urlOer
             #print '            %s'%str(htmlOer)[0:10]
 
-
-            """ObjBd.insertar_datos_trip(urlMenu,'oer',urlOer,tabla)
+            try:
+            ObjBd.insertar_datos_trip(urlMenu,'oer',urlOer,tabla)
             ObjBd.insertar_datos_trip(urlOer,'link',urlOer,tabla)
             ObjBd.insertar_datos_trip(urlOer,'title',descripOer ,tabla)
             ObjBd.insertar_datos_trip(urlOer,'description',textoOer,tabla)
@@ -142,10 +142,8 @@ for cont,x in enumerate(datos):
 
             extoer=extraerextoer(urlOer)
             ObjBd.insertar_datos_trip(urlOer,'rdf:type','oer',tabla)
-            ObjBd.insertar_datos_trip(urlOer,'rdf:type',extoer,tabla)"""
-
-            try:
-                ObjBd.insertar_datos(urlscrap,urlMenu,tituloMenu,urlOer,descripOer,'cursostabla')
+            ObjBd.insertar_datos_trip(urlOer,'rdf:type',extoer,tabla)
+              
             except Exception, e:
                 print e
                 continue

@@ -24,13 +24,70 @@ class BDdatos():
         except Exception, e:
             print "error de coneccion", e
         return db
+    def conectarlord(self):
+        """
+           conectarme a la bd
+        """
+        db = None
+        try:
+            #obtener datos de autentificacion de la base de datos
+            host = HOSTLord
+            user = USERLord
+            clave = PASSLord
+            base_datos = BDLord
+            db=MySQLdb.connect(host=host,user=user,passwd=clave,db=base_datos,charset='utf8',use_unicode=True )
+        except Exception, e:
+            print "error de coneccion", e
+        return db
     
     def cerrar(self, db):
         """
             cerrar la base de datos
         """
         db.close()
-    
+
+    def insertar_datos_trip_Tabla(self,tabla1,tabala2):
+        db=self.conectar()
+        cur=db.cursor()
+        sql="INSERT INTO %s SELECT * FROM %s"%(tabla1,tabala2)
+        cur.execute(sql)
+        db.commit()
+        db.close()
+
+    def CursosConsortium(self):
+        """
+            conectarme a la bd, para sacar los datos necesarios
+        """
+        db=self.conectar() 
+        cursor=db.cursor()
+        sql = "SELECT distinct objeto FROM ScrapyMenu.ConsortiumCursos where predicado='urlCourseOCWC';"
+        cursor.execute(sql)
+        datos = cursor.fetchall()
+        db.close()
+        return datos
+    def CursosConsortiumFaltantes(self):
+        """
+            conectarme a la bd, para sacar los datos necesarios
+        """
+        db=self.conectar() 
+        cursor=db.cursor()
+        sql = "SELECT sujeto FROM ScrapyMenu.CursosConsortiumFaltantes3;"
+        cursor.execute(sql)
+        datos = cursor.fetchall()
+        db.close()
+        return datos
+    def consulta(self, consulta):
+        """
+            conectarme a la bd, para sacar los datos necesarios
+        """
+        db=self.conectar() 
+        cursor=db.cursor()
+        sql = consulta
+        cursor.execute(sql)
+        datos = cursor.fetchall()
+        db.close()
+        return datos
+
     def datos_start_url(self, tabla):
         """
             conectarme a la bd, para sacar los datos necesarios
@@ -54,7 +111,7 @@ class BDdatos():
         datos = cursor.fetchall()
         db.close()
         return datos
-
+        
     
     def insertar_datos(self, dato1, dato2, dato3,dato4,dato5, tabla):
         db=self.conectar()
@@ -78,19 +135,41 @@ class BDdatos():
         cur.execute(u"""CREATE  TABLE ScrapyMenu."""+ nombretabla +"""( sujeto TEXT CHARACTER SET 'utf8' NULL , predicado TEXT CHARACTER SET 'utf8' NULL , objeto LONGTEXT CHARACTER SET 'utf8' NULL ) DEFAULT CHARACTER SET = utf8;""")
         db.commit()
         db.close()
+    def crearTablalord(self,nombretabla):
+        db=self.conectarlord()
+        cur=db.cursor()
+        cur.execute(u"""CREATE  TABLE """+ nombretabla +"""( sujeto TEXT CHARACTER SET 'utf8' NULL , predicado TEXT CHARACTER SET 'utf8' NULL , objeto LONGTEXT CHARACTER SET 'utf8' NULL ) DEFAULT CHARACTER SET = utf8;""")
+        db.commit()
+        db.close()
 
         
     def insertar_datos_trip(self, s, p, o, tabla):
         db=self.conectar()
         cur=db.cursor()
-        #print 'sujeto= %s'%s
-        #print 'predicado= %s'%p
-        #print 'objeto= %s'%o
-        #o=str(o).decode('utf-8')
-        #o=unicodedata.normalize('NFKD', o).encode('ascii','ignore')
         cur.execute(u"""INSERT INTO """+ tabla +""" (sujeto, predicado, objeto) VALUES (%s, %s, %s)""" ,
             (s, p, o))
         db.commit()
+        db.close()
+    #def insertar_datos_trip(self, s, p, o,sp,op, tabla):
+    #    db=self.conectarlord()
+    #    cur=db.cursor()
+    #    cur.execute(u"""INSERT INTO """+ tabla +""" (sujeto, predicado, objeto,sujetoper,objetoper) VALUES (%s, %s, %s,%s,%s)""" ,
+    #        (s, p, o,sp,op))
+    #    db.commit()
+    #    db.close()
+    def insertar_datos_trip_lord(self, s, p, o, tabla):
+        db=self.conectarlord()
+        cur=db.cursor()
+        cur.execute(u"""INSERT INTO """+ tabla +""" (sujeto, predicado, objeto) VALUES (%s, %s, %s)""" ,
+            (s, p, o))
+        db.commit() 
+        db.close()
+    def insertar_datos_trip_per_lord(self, s, p, o,sp,op, tabla):
+        db=self.conectarlord()
+        cur=db.cursor()
+        cur.execute(u"""INSERT INTO """+ tabla +""" (sujeto, predicado, objeto,sujetoper,objetoper) VALUES (%s, %s, %s,%s,%s)""" ,
+            (s, p, o,sp,op))
+        db.commit() 
         db.close()
   
 
@@ -161,6 +240,14 @@ class BDdatos():
         db.commit()
         db.close()
 
+    def ConsortiumMienmbros(self):
+        db=self.conectar() 
+        cursor=db.cursor()
+        sql = "select * from ConsortiumMienmbros where predicado='titulo' limit 240000000000;"
+        cursor.execute(sql)
+        datos = cursor.fetchall()
+        db.close()
+        return datos
 
     def cursosmit(self):
         """
@@ -777,6 +864,18 @@ class BDdatos():
         db=self.conectar() 
         cursor=db.cursor()
         sql = "SELECT distinct objeto FROM ScrapyMenu.CursosUniversia where predicado='link' limit 1000000000000000;"
+        cursor.execute(sql)
+        datos = cursor.fetchall()
+        db.close()
+        return datos
+        CursosOcwVideoLectures
+    def CursosOcwVideoLectures(self):
+        """
+            conectarme a la bd, para sacar los datos necesarios
+        """
+        db=self.conectar() 
+        cursor=db.cursor()
+        sql = "SELECT distinct objeto FROM ScrapyMenu.VideoLectures;"
         cursor.execute(sql)
         datos = cursor.fetchall()
         db.close()

@@ -93,6 +93,8 @@ def identificarOer2(url):
                 return 'jpeg'
             else:
                 return '0'
+        else:
+                return self.extraerextoer(url)
     except Exception, e:
             return '0'
 def EncuentraDescripcion(aux):
