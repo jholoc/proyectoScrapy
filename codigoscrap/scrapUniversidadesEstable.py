@@ -146,8 +146,8 @@ class Scrap():
         urlscrap=UrlCurso
         print '%s'%(urlscrap)
       
-        ObjBd.insertar_datos_trip_lord(urlscrap,'link',urlscrap,tabla)#insertar en la bd Link
-        ObjBd.insertar_datos_trip_lord(urlscrap,'rdf:type','ocw',tabla)#insertar en la bd type
+        ObjBd.insertar_datos_trip(urlscrap,'link',urlscrap,tabla)#insertar en la bd Link
+        ObjBd.insertar_datos_trip(urlscrap,'rdf:type','ocw',tabla)#insertar en la bd type
         try:
             if 'http://ocw.ua.es' in urlscrap:
                 webpage1 = urllib2.urlopen(urlscrap,timeout=20).read() #lectura de la pagina a scrapear
@@ -201,20 +201,20 @@ class Scrap():
                     elif textoOer=='':
                         textoOer=descripOer
                     
-                    ObjBd.insertar_datos_trip_lord(urlscrap,'oer',urlOer,tabla)
-                    ObjBd.insertar_datos_trip_lord(urlOer,'link',urlOer,tabla)
-                    ObjBd.insertar_datos_trip_lord(urlOer,'title',descripOer ,tabla)
-                    ObjBd.insertar_datos_trip_lord(urlOer,'description',textoOer,tabla)
-                    ObjBd.insertar_datos_trip_lord(urlOer,'html',str(htmlOer),tabla)
-                    ObjBd.insertar_datos_trip_lord(urlOer,'rdf:type','oer',tabla)
-                    ObjBd.insertar_datos_trip_lord(urlOer,'rdf:type',extoer,tabla)
+                    ObjBd.insertar_datos_trip(urlscrap,'oer',urlOer,tabla)
+                    ObjBd.insertar_datos_trip(urlOer,'link',urlOer,tabla)
+                    ObjBd.insertar_datos_trip(urlOer,'title',descripOer ,tabla)
+                    ObjBd.insertar_datos_trip(urlOer,'description',textoOer,tabla)
+                    ObjBd.insertar_datos_trip(urlOer,'html',str(htmlOer),tabla)
+                    ObjBd.insertar_datos_trip(urlOer,'rdf:type','oer',tabla)
+                    ObjBd.insertar_datos_trip(urlOer,'rdf:type',extoer,tabla)
 
     def ScrapPaginasConMenu(self,UrlCurso,tabla,estructuraContenido):
         continuar=True
         urlscrap=UrlCurso
         print '%s'%(urlscrap)
-        ObjBd.insertar_datos_trip_lord(urlscrap,'link',urlscrap,tabla)#insertar en la bd Link
-        ObjBd.insertar_datos_trip_lord(urlscrap,'rdf:type','ocw',tabla)#insertar en la bd type
+        ObjBd.insertar_datos_trip(urlscrap,'link',urlscrap,tabla)#insertar en la bd Link
+        ObjBd.insertar_datos_trip(urlscrap,'rdf:type','ocw',tabla)#insertar en la bd type
         try:
             webpage1 = urllib2.urlopen(urlscrap,timeout=20).read() #lectura de la pagina a scrapear 
             webpage1 = webpage1.replace('<p>','').replace('</p>','').replace('<br>','')
@@ -232,16 +232,16 @@ class Scrap():
                 #urlMenu=self.unionurl(urlscrap,i.get('href'))
                 if urlscrap== urlMenu:
                     continue    
-                ObjBd.insertar_datos_trip_lord(urlscrap,'menu',urlMenu,tabla)
-                ObjBd.insertar_datos_trip_lord(urlMenu,'link',urlMenu,tabla)
-                ObjBd.insertar_datos_trip_lord(urlMenu,'title',tituloMenu,tabla)
-                ObjBd.insertar_datos_trip_lord(urlMenu,'rdf:type','menu',tabla)
+                ObjBd.insertar_datos_trip(urlscrap,'menu',urlMenu,tabla)
+                ObjBd.insertar_datos_trip(urlMenu,'link',urlMenu,tabla)
+                ObjBd.insertar_datos_trip(urlMenu,'title',tituloMenu,tabla)
+                ObjBd.insertar_datos_trip(urlMenu,'rdf:type','menu',tabla)
                 nombreMenu=self.extraernombremenu(urlMenu)
-                ObjBd.insertar_datos_trip_lord(urlMenu,'rdf:type',nombreMenu,tabla)
+                ObjBd.insertar_datos_trip(urlMenu,'rdf:type',nombreMenu,tabla)
                 
                 #print tituloMenu
                 print '    %s'%urlMenu
-                urlMenu= unicodedata.normalize('NFKD', unicode(urlMenu)).encode('ascii','ignore')
+                urlMenu= unicodedata.normalize('NFKD', urlMenu).encode('ascii','ignore')
                 patron = re.compile("(\.(tgz|pdf|mp3|mp4|MP4|mov|wmv|flv|zip|rar|tar|gz|htm|xls|xlsx|doc|docx|odt|pps|ppt|pptx|XLS|DOCX|PPTX|jpg|gif|ISO|iso|epv|mobipocket|swf|jar|avi|AVI|txt|mpg|MPG|dwg|tg|exe|EXE)$)",re.IGNORECASE)
                 busqueda=patron.search(urlMenu)
                 if busqueda!=None:
@@ -260,7 +260,7 @@ class Scrap():
                 if htmlCurso==[]:
                     continue
 
-                ObjBd.insertar_datos_trip_lord(urlMenu,'html',str(htmlCurso),tabla)
+                ObjBd.insertar_datos_trip(urlMenu,'html',str(htmlCurso),tabla)
                 hrefs= htmlCurso[0].find_all('a', href=True)
                 for href in hrefs:
                     try:
@@ -320,24 +320,24 @@ class Scrap():
                     elif textoOer=='':
                         textoOer=descripOer
                     
-                    ObjBd.insertar_datos_trip_lord(urlMenu,'oer',urlOer,tabla)
-                    ObjBd.insertar_datos_trip_lord(urlOer,'link',urlOer,tabla)
-                    ObjBd.insertar_datos_trip_lord(urlOer,'title',descripOer ,tabla)
-                    ObjBd.insertar_datos_trip_lord(urlOer,'description',textoOer,tabla)
-                    ObjBd.insertar_datos_trip_lord(urlOer,'html',str(htmlOer),tabla)
-                    ObjBd.insertar_datos_trip_lord(urlOer,'rdf:type','oer',tabla)
-                    ObjBd.insertar_datos_trip_lord(urlOer,'rdf:type',extoer,tabla)
+                    ObjBd.insertar_datos_trip(urlMenu,'oer',urlOer,tabla)
+                    ObjBd.insertar_datos_trip(urlOer,'link',urlOer,tabla)
+                    ObjBd.insertar_datos_trip(urlOer,'title',descripOer ,tabla)
+                    ObjBd.insertar_datos_trip(urlOer,'description',textoOer,tabla)
+                    ObjBd.insertar_datos_trip(urlOer,'html',str(htmlOer),tabla)
+                    ObjBd.insertar_datos_trip(urlOer,'rdf:type','oer',tabla)
+                    ObjBd.insertar_datos_trip(urlOer,'rdf:type',extoer,tabla)
     def ScrapUci(self,urlscrap,tabla):
         print '%s'%(urlscrap)  
-        ObjBd.insertar_datos_trip_lord(urlscrap,'link',urlscrap,tabla)#insertar en la bd Link
-        ObjBd.insertar_datos_trip_lord(urlscrap,'rdf:type','ocw',tabla)#insertar en la bd type
+        ObjBd.insertar_datos_trip(urlscrap,'link',urlscrap,tabla)#insertar en la bd Link
+        ObjBd.insertar_datos_trip(urlscrap,'rdf:type','ocw',tabla)#insertar en la bd type
 
         webpage1 = urlopen(urlscrap).read() #lectura de la pagina a scrapear 
         soup1 = BeautifulSoup(webpage1)
         htmlcurso=soup1.select('div.columnleft_nomiddle')
         ViSoup = soup1.select('iframe')
 
-        ObjBd.insertar_datos_trip_lord(urlscrap,'html',str(htmlcurso),tabla)
+        ObjBd.insertar_datos_trip(urlscrap,'html',str(htmlcurso),tabla)
 
 
         if ViSoup != []:
@@ -354,24 +354,24 @@ class Scrap():
                 descipcionsoup= soup2.select('#eow-description')
                 descipcion= descipcionsoup[0].text
 
-                ObjBd.insertar_datos_trip_lord(urlscrap,'oer',urlvi,tabla)
-                ObjBd.insertar_datos_trip_lord(urlvi,'link',urlvi,tabla)
-                ObjBd.insertar_datos_trip_lord(urlvi,'title',titulo ,tabla)
-                ObjBd.insertar_datos_trip_lord(urlvi,'description',descipcion,tabla)
-                ObjBd.insertar_datos_trip_lord(urlvi,'html',str(webpage2),tabla)
+                ObjBd.insertar_datos_trip(urlscrap,'oer',urlvi,tabla)
+                ObjBd.insertar_datos_trip(urlvi,'link',urlvi,tabla)
+                ObjBd.insertar_datos_trip(urlvi,'title',titulo ,tabla)
+                ObjBd.insertar_datos_trip(urlvi,'description',descipcion,tabla)
+                ObjBd.insertar_datos_trip(urlvi,'html',str(webpage2),tabla)
 
-                ObjBd.insertar_datos_trip_lord(urlvi,'rdf:type','oer',tabla)
-                ObjBd.insertar_datos_trip_lord(urlvi,'rdf:type','video',tabla)
+                ObjBd.insertar_datos_trip(urlvi,'rdf:type','oer',tabla)
+                ObjBd.insertar_datos_trip(urlvi,'rdf:type','video',tabla)
 
 
     #www.upv.es
     def ScrapUpvEs(self,UrlCurso,tabla):#no hay como scpraear
         print 'Error al Scrapear'
-        ObjBd.insertar_datos_trip_lord(UrlCurso,'error','Error al Scrapear',tabla)
+        ObjBd.insertar_datos_trip(UrlCurso,'error','Error al Scrapear',tabla)
     #www.unsavirtual.edu.pe:8090
     def ScrapUnsavirtualEduPe8090(self,UrlCurso,tabla):#no hay como scpraear
         print 'FUERA DE LINEA'
-        ObjBd.insertar_datos_trip_lord(UrlCurso,'error','FUERA DE LINEA',tabla)
+        ObjBd.insertar_datos_trip(UrlCurso,'error','FUERA DE LINEA',tabla)
     #www.unav.es
     def ScrapUanvEs(self,UrlCurso,tabla):
         estructuraContenido=['td.menu_asignatura > a','td.contenido','td.contenido']
@@ -389,7 +389,7 @@ class Scrap():
         #estructuraContenido=['div#programa','div#main']
         #ScrapPaginasSinMenu(UrlCurso,tabla,estructuraContenido)
         print 'Error al Scrapear'
-        ObjBd.insertar_datos_trip_lord(UrlCurso,'error','Error al Scrapear',tabla)
+        ObjBd.insertar_datos_trip(UrlCurso,'error','Error al Scrapear',tabla)
 
     #www.icesi.edu.co
     def ScrapIcesiEduCo(self,UrlCurso,tabla):#www.icesi.edu.co
@@ -406,7 +406,7 @@ class Scrap():
     #ocw.virtualum.edu.co
     def ScrapVirtualumEduCo(self,UrlCurso,tabla):#no hay como scpraear
         print 'FUERA DE LINEA'
-        ObjBd.insertar_datos_trip_lord(UrlCurso,'error','FUERA DE LINEA',tabla)
+        ObjBd.insertar_datos_trip(UrlCurso,'error','FUERA DE LINEA',tabla)
     #ocw.uv.es
     def ScrapUvEs(self,UrlCurso,tabla):
         estructuraContenido=['div#portlet-eduCommonsNavigation > div.unSelected > a','.plain','#content']
@@ -414,7 +414,7 @@ class Scrap():
     #ocw.usc.es
     def ScrapUscEs(self,UrlCurso,tabla):
         print 'FUERA DE LINEA'
-        ObjBd.insertar_datos_trip_lord(UrlCurso,'error','FUERA DE LINEA',tabla)
+        ObjBd.insertar_datos_trip(UrlCurso,'error','FUERA DE LINEA',tabla)
     #ocw.usal.es
     def ScrapUsalEs(self,UrlCurso,tabla):
         estructuraContenido=['div#portlet-eduCommonsNavigation > div.unSelecte > a','.plain','#content']
@@ -444,7 +444,7 @@ class Scrap():
         #estructuraContenido=['div.webfx-tree-item > a','.content','#middle-column']
         #ScrapPaginasConMenu(UrlCurso,tabla,estructuraContenido)
         print 'Error al Scrapear'
-        ObjBd.insertar_datos_trip_lord(UrlCurso,'error','Error al Scrapear',tabla)
+        ObjBd.insertar_datos_trip(UrlCurso,'error','Error al Scrapear',tabla)
     #ocw.unican.es
     def ScrapUnicanEs(self,UrlCurso,tabla):
         estructuraContenido=['dl#portlet-simple-nav > dd.portletItem > a','#parent-fieldname-text','#content']
@@ -473,7 +473,7 @@ class Scrap():
     #ocw.ull.es
     def ScrapUllEs(self,UrlCurso,tabla):#no hay como scpraear
         print 'FUERA DE LINEA'
-        ObjBd.insertar_datos_trip_lord(UrlCurso,'error','FUERA DE LINEA',tabla)
+        ObjBd.insertar_datos_trip(UrlCurso,'error','FUERA DE LINEA',tabla)
     #ocw.uis.edu.co
     def ScrapUisEduCo(self,UrlCurso,tabla):
         estructuraContenido=['#portlet-simple-nav > dd.portletItem > a','#parent-fieldname-text','#portal-column-content']
@@ -517,7 +517,7 @@ class Scrap():
     #ocw.itesm.mx
     def ScrapItesmMx(self,UrlCurso,tabla):
         print 'FUERA DE LINEA'
-        ObjBd.insertar_datos_trip_lord(UrlCurso,'error','FUERA DE LINEA',tabla)
+        ObjBd.insertar_datos_trip(UrlCurso,'error','FUERA DE LINEA',tabla)
     #ocw.innova.uned.es
     def ScrapInnovaUnedEs(self,UrlCurso,tabla):
         estructuraContenido=['#portlet-eduCommonsNavigation > div.unSelected > a','.plain','#content']
@@ -533,7 +533,7 @@ class Scrap():
     #ocw.ehu.es
     def ScrapEhuEs(self,UrlCurso,tabla):
         print 'Error al Scrapear'
-        ObjBd.insertar_datos_trip_lord(UrlCurso,'error','Error al Scrapear',tabla)
+        ObjBd.insertar_datos_trip(UrlCurso,'error','Error al Scrapear',tabla)
 
         """print UrlCurso
         webpage1=requests.get(UrlCurso).text
@@ -640,7 +640,7 @@ class Scrap():
         #estructuraContenido=[' > a','','']
         #self.ScrapPaginasConMenu(UrlCurso,tabla,estructuraContenido)
         print 'Error al Scrapear'
-        ObjBd.insertar_datos_trip_lord(UrlCurso,'error','Error al Scrapear',tabla)
+        ObjBd.insertar_datos_trip(UrlCurso,'error','Error al Scrapear',tabla)
 
     #ocw.umb.edu 
     def ScrapUmbEdu(self,UrlCurso,tabla):
@@ -651,28 +651,28 @@ class Scrap():
         #estructuraContenido=[' > a','','']
         #self.ScrapPaginasConMenu(UrlCurso,tabla,estructuraContenido)
         print 'Error al Scrapear'
-        ObjBd.insertar_datos_trip_lord(UrlCurso,'error','Error al Scrapear',tabla)
+        ObjBd.insertar_datos_trip(UrlCurso,'error','Error al Scrapear',tabla)
 
     #peer-news.blogspot.com  
     def ScrapPeernewsBlogspotCom(self,UrlCurso,tabla):
         #estructuraContenido=[' > a','','']
         #self.ScrapPaginasConMenu(UrlCurso,tabla,estructuraContenido)
         print 'Error al Scrapear'
-        ObjBd.insertar_datos_trip_lord(UrlCurso,'error','Error al Scrapear',tabla)
+        ObjBd.insertar_datos_trip(UrlCurso,'error','Error al Scrapear',tabla)
 
     #feedproxy.google.com    
     def ScrapGoogleCom(self,UrlCurso,tabla):
         #estructuraContenido=[' > a','','']
         #self.ScrapPaginasConMenu(UrlCurso,tabla,estructuraContenido)
         print 'Error al Scrapear'
-        ObjBd.insertar_datos_trip_lord(UrlCurso,'error','Error al Scrapear',tabla)
+        ObjBd.insertar_datos_trip(UrlCurso,'error','Error al Scrapear',tabla)
 
     #ocw.nctu.edu.tw
     def ScrapNctuEduTw(self,UrlCurso,tabla):
         #estructuraContenido=[' > a','','']
         #self.ScrapPaginasConMenu(UrlCurso,tabla,estructuraContenido)
         print 'FUERA DE LINEA'
-        ObjBd.insertar_datos_trip_lord(UrlCurso,'error','FUERA DE LINEA',tabla)
+        ObjBd.insertar_datos_trip(UrlCurso,'error','FUERA DE LINEA',tabla)
     #www.open-marhi.ru   
     def ScrapOpenmarhiRu(self,UrlCurso,tabla):
         estructuraContenido=['div.left_menu_item > a','#content','#content']
@@ -682,7 +682,7 @@ class Scrap():
         #estructuraContenido=[' > a','','']
         #self.ScrapPaginasConMenu(UrlCurso,tabla,estructuraContenido)
         print 'FUERA DE LINEA'
-        ObjBd.insertar_datos_trip_lord(UrlCurso,'error','FUERA DE LINEA',tabla)
+        ObjBd.insertar_datos_trip(UrlCurso,'error','FUERA DE LINEA',tabla)
     #ocw.tmu.edu.tw:8080 
     def ScrapTmuEduTw8080(self,UrlCurso,tabla):
         estructuraContenido=['div#portlet-eduCommonsNavigation > div.unSelected > a','#content','#content']
@@ -708,7 +708,7 @@ class Scrap():
         #estructuraContenido=[' > a','','']
         #self.ScrapPaginasConMenu(UrlCurso,tabla,estructuraContenido)
         print 'Error al Scrapear'
-        ObjBd.insertar_datos_trip_lord(UrlCurso,'error','Error al Scrapear',tabla)
+        ObjBd.insertar_datos_trip(UrlCurso,'error','Error al Scrapear',tabla)
 
     #ocw.uab.cat 
     def ScrapUabCat(self,UrlCurso,tabla):
@@ -723,13 +723,13 @@ class Scrap():
         #estructuraContenido=[' > a','','']
         #self.ScrapPaginasConMenu(UrlCurso,tabla,estructuraContenido)
         print 'FUERA DE LINEA'
-        ObjBd.insertar_datos_trip_lord(UrlCurso,'error','FUERA DE LINEA',tabla)
+        ObjBd.insertar_datos_trip(UrlCurso,'error','FUERA DE LINEA',tabla)
     #ocw.ie.edu  
     def ScrapIeEdu(self,UrlCurso,tabla):
         #estructuraContenido=[' > a','','']
         #self.ScrapPaginasConMenu(UrlCurso,tabla,estructuraContenido)
         print 'Error al Scrapear'
-        ObjBd.insertar_datos_trip_lord(UrlCurso,'error','Error al Scrapear',tabla)
+        ObjBd.insertar_datos_trip(UrlCurso,'error','Error al Scrapear',tabla)
 
     #ocw.kyushu-u.ac.jp  
     def ScrapKyushuuAcJp(self,UrlCurso,tabla):
@@ -740,13 +740,13 @@ class Scrap():
         #estructuraContenido=[' > a','','']
         #self.ScrapPaginasConMenu(UrlCurso,tabla,estructuraContenido)
         print 'Pagina informativa'
-        ObjBd.insertar_datos_trip_lord(UrlCurso,'error','Pagina informativa',tabla)
+        ObjBd.insertar_datos_trip(UrlCurso,'error','Pagina informativa',tabla)
     #ocw.kaplan.edu  
     def ScrapKaplanEdu(self,UrlCurso,tabla):
         #estructuraContenido=[' > a','','']
         #self.ScrapPaginasConMenu(UrlCurso,tabla,estructuraContenido)
         print 'Error al Scrapear'
-        ObjBd.insertar_datos_trip_lord(UrlCurso,'error','Error al Scrapear',tabla)
+        ObjBd.insertar_datos_trip(UrlCurso,'error','Error al Scrapear',tabla)
 
     #ocw.utpl.edu.ec 
     def ScrapUtplEduEc(self,UrlCurso,tabla):
@@ -761,26 +761,26 @@ class Scrap():
         #estructuraContenido=[' > a','','']
         #self.ScrapPaginasConMenu(UrlCurso,tabla,estructuraContenido)
         print 'Pagina informativa'
-        ObjBd.insertar_datos_trip_lord(UrlCurso,'error','Pagina informativa',tabla)
+        ObjBd.insertar_datos_trip(UrlCurso,'error','Pagina informativa',tabla)
     #www.kyotomm.jp  
     def ScrapKyotommJp(self,UrlCurso,tabla):
         #estructuraContenido=[' > a','','']
         #self.ScrapPaginasConMenu(UrlCurso,tabla,estructuraContenido)
         print 'Pagina informativa'
-        ObjBd.insertar_datos_trip_lord(UrlCurso,'error','Pagina informativa',tabla)
+        ObjBd.insertar_datos_trip(UrlCurso,'error','Pagina informativa',tabla)
     #learn.uci.edu   
     def ScrapLearnUciEdu(self,UrlCurso,tabla):
         #estructuraContenido=[' > a','','']
         #self.ScrapPaginasConMenu(UrlCurso,tabla,estructuraContenido)
         print 'Error al Scrapear'
-        ObjBd.insertar_datos_trip_lord(UrlCurso,'error','Error al Scrapear',tabla)
+        ObjBd.insertar_datos_trip(UrlCurso,'error','Error al Scrapear',tabla)
 
     #media.learn.uci.edu 
     def ScrapMediaLearnUciEdu(self,UrlCurso,tabla):
         #estructuraContenido=[' > a','','']
         #self.ScrapPaginasConMenu(UrlCurso,tabla,estructuraContenido)
         print 'Error al Scrapear'
-        ObjBd.insertar_datos_trip_lord(UrlCurso,'error','Error al Scrapear',tabla)
+        ObjBd.insertar_datos_trip(UrlCurso,'error','Error al Scrapear',tabla)
 
     #ocw.usu.ac.id   
     def ScrapUsuAcId(self,UrlCurso,tabla):
@@ -795,19 +795,19 @@ class Scrap():
         #estructuraContenido=[' > a','','']
         #self.ScrapPaginasConMenu(UrlCurso,tabla,estructuraContenido)
         print 'Pagina informativa'
-        ObjBd.insertar_datos_trip_lord(UrlCurso,'error','Pagina informativa',tabla)
+        ObjBd.insertar_datos_trip(UrlCurso,'error','Pagina informativa',tabla)
     #admission.kyoto-seika.ac.jp 
     def ScrapAdmissionKyotoseikaAcJp(self,UrlCurso,tabla):
         #estructuraContenido=[' > a','','']
         #self.ScrapPaginasConMenu(UrlCurso,tabla,estructuraContenido)
         print 'Pagina informativa'
-        ObjBd.insertar_datos_trip_lord(UrlCurso,'error','Pagina informativa',tabla)
+        ObjBd.insertar_datos_trip(UrlCurso,'error','Pagina informativa',tabla)
     #johokan.kyoto-seika.ac.jp   
     def ScrapJohokanKyotoseikaAcJp(self,UrlCurso,tabla):
         #estructuraContenido=[' > a','','']
         #self.ScrapPaginasConMenu(UrlCurso,tabla,estructuraContenido)
         print 'Pagina informativa'
-        ObjBd.insertar_datos_trip_lord(UrlCurso,'error','Pagina informativa',tabla)
+        ObjBd.insertar_datos_trip(UrlCurso,'error','Pagina informativa',tabla)
     #labspace.open.ac.uk 
     def ScrapOpenAcUk(self,UrlCurso,tabla):
         estructuraContenido=['#middle-column','#middle-column']
@@ -817,7 +817,7 @@ class Scrap():
         #estructuraContenido=[' > a','','']
         #self.ScrapPaginasConMenu(UrlCurso,tabla,estructuraContenido)
         print 'Error al Scrapear'
-        ObjBd.insertar_datos_trip_lord(UrlCurso,'error','Error al Scrapear',tabla)
+        ObjBd.insertar_datos_trip(UrlCurso,'error','Error al Scrapear',tabla)
     def ScrapVideolecturesNet(self,UrlCurso,tabla):
         estructuraContenido=['#vl_seealso','.mod_body']
         self.ScrapPaginasSinMenu(UrlCurso,tabla,estructuraContenido)

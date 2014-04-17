@@ -13,16 +13,17 @@ ObjBd = BDdatos()
 Scrapear = Scrap()
 def cursos(datos,tabla):
     for cont,x in enumerate(datos):
-        if cont<1753: 
+        if cont<8837: 
             continue
         print cont
         Scrapear.ScrapUniverdidades(x[0],tabla)
 
 url='http://ocw.uci.edu/lectures/2010_gulf_oil_spill_investigating_its_root_causes_at_the_request_of_the_president.html'
 tabla='CursosConsortium'
-tabla='prueba'
+tabla='ConsortiumOers310314'
 datos=ObjBd.CursosConsortium()
 #datos=ObjBd.CursosConsortiumFaltantes()
+#print datos
 cursos(datos,tabla)
 #ObjBd.crearTabla(tabla)
 #sys.exit()

@@ -25,28 +25,18 @@ def buscauniversidad(basedeuniversidades,nombredeuniversidad):
             return universidad[0]
             break
     return 'null'
-def SustainingMember():
-    urlscrap='http://www.ocwconsortium.org/members/all/'
-    tiSoup = bs4extracion(urlscrap,".columns.large-9 ul li")#selecion de la pagina que contiene los titulos de las noticias
-    for uni in tiSoup:
-        tituloUniverisdad= uni.a.get('href')
-        estrella=uni.a.select('i')
-        if estrella!=[]:
-                print '    #%s'%tituloUniverisdad
-                print 'estrella'
-            else:
-                print '    %s'%tituloUniverisdad
+
 
 
 
 
 tabla='ConsortiumMienmbros310314'
 #tabla='ConsortiumTodo'
-tabla='prueba'
+#tabla='prueba'
 ObjBd = BDdatos()
 ConsortiumMienmbro = ObjBd.ConsortiumMienmbros()
-#ObjBd.crearTabla(tabla)
-#sys.exit()
+ObjBd.crearTabla(tabla)
+sys.exit()
 
 urlscrap='http://www.ocwconsortium.org/members/'
 print urlscrap

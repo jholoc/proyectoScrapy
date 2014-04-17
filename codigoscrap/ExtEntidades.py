@@ -35,10 +35,13 @@ class ExtraerEntidades:
 		Lista2 = []
 		for sentence in sent_tokenize(texto):
 			tags=ObjTag.tagear(sentence)
+
+			tagsentX=word_tokenize(sentence)
+			filtered_words = ' '.join(w for w in tagsentX if not w in nltk.corpus.stopwords.words('spanish'))
 			parsed = chunker.parse(tags)
 			for chunk in parsed:
 				if hasattr(chunk, 'node'):
-					Lista2.append([chunk.leaves(),sentence])
+					Lista2.append([chunk.leaves(),filtered_words])
 					Lista.append (' '.join(c[0] for c in chunk.leaves()))
 		return Lista2
 
@@ -48,10 +51,12 @@ class ExtraerEntidades:
 		Lista2= []
 		for sentence in sent_tokenize(texto):
 			tags=ObjTag.tagear(sentence)
+			tagsentX=word_tokenize(sentence)
+			filtered_words = ' '.join(w for w in tagsentX if not w in nltk.corpus.stopwords.words('english'))
 			parsed = ne_chunk(tags)
 			for chunk in parsed:
 				if hasattr(chunk, 'node'):
-					Lista2.append([chunk.leaves(),sentence])
+					Lista2.append([chunk.leaves(),filtered_words])
 					Lista.append (' '.join(c[0] for c in chunk.leaves()))
 		return Lista2
 

@@ -13,12 +13,12 @@ ObjBd = BDdatos()
 #ObjBd.crearTabla(tabla)
 #sys.exit()
 
-urlscrap='http://www.ocwconsortium.org/en/members/members/master'
+urlscrap='http://www.ocwconsortium.org/members/all/'
 print urlscrap
 
 webpage1 = urlopen(urlscrap).read() #lectura de la pagina a scrapear  
 soup1 = BeautifulSoup(webpage1)
-tiSoup = soup1.select("#pagecontent ul")#selecion de la pagina que contiene los titulos de las noticias
+tiSoup = soup1.select(".pagecontent ul")#selecion de la pagina que contiene los titulos de las noticias
 InicioPag='http://www.ocwconsortium.org'
 
 

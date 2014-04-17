@@ -58,9 +58,9 @@ class BDdatos():
         """
             conectarme a la bd, para sacar los datos necesarios
         """
-        db=self.conectar() 
+        db=self.conectarlord() 
         cursor=db.cursor()
-        sql = "SELECT distinct objeto FROM ScrapyMenu.ConsortiumCursos where predicado='urlCourseOCWC';"
+        sql = "SELECT distinct objeto FROM ConsortiumCursos where predicado='urlCourseOCWC';"
         cursor.execute(sql)
         datos = cursor.fetchall()
         db.close()

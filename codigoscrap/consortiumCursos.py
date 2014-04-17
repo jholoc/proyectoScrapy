@@ -22,8 +22,8 @@ def validapaguinacion(paginacion):
 
 
 
-tabla=sys.argv[1]
-#tabla='ConsortiumCursos080114'
+#tabla=sys.argv[1]
+tabla='ConsortiumCursos310314'
 #tabla='ConsortiumTodo'
 ObjBd = BDdatos()
 ObjBd.crearTabla(tabla)
