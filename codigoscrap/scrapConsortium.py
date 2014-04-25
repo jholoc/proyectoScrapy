@@ -13,7 +13,7 @@ ObjBd = BDdatos()
 Scrapear = Scrap()
 def cursos(datos,tabla):
     for cont,x in enumerate(datos):
-        if cont<8837: 
+        if cont<8988: 
             continue
         print cont
         Scrapear.ScrapUniverdidades(x[0],tabla)

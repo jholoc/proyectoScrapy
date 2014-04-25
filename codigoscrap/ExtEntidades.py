@@ -16,6 +16,28 @@ class ExtraerEntidades:
 		    {<NN|NNS><JJ>|<JJ><NN|NNS>}
 		    {<NNP|NNPS>}
 		ENTIDACOMP:
+			{<NN|NNS><ENTI>}
+			{<NN|NNS><IN><ENTI>}
+			{<ENTI>(<IN>|<IN><DT>)<ENTI|NN|NNS>}
+			{<ENTI|ENTIDACOMP><JJ><IN><ENTI|ENTIDACOMP>}
+		    {<ENTI|ENTIDACOMP><IN><ENTI|ENTIDACOMP>}
+		    {<ENTI|ENTIDACOMP><IN><ENTI|ENTIDACOMP><IN><ENTI|ENTIDACOMP>}
+		ENTIDACOMP2:
+			{<ENTI|ENTIDACOMP><IN><ENTI|ENTIDACOMP>}
+		FECHA:
+			{<LS|CD><IN><ENTI><DT><LS|CD>}
+			{<LS|CD><IN><ENTI>}
+			{<ENTI><DT><LS|CD>}
+			{<ENTI><LS|CD>}
+		""")
+		'''chunker = RegexpParser("""
+		ENTI:
+		    {<NNP|NNPS>+<NNP|NNPS|NN|NNS>} 
+		    {<NN|NNS>+<NN|NNS><JJ>} 
+		    {<NNP|NNPS><IN|DT><NNP|NNPS|NN|NNS>}
+		    {<NN|NNS><JJ>|<JJ><NN|NNS>}
+		    {<NNP|NNPS>}
+		ENTIDACOMP:
 			{<DT><NN|NNS><ENTI>}
 			{<DT><NN|NNS><IN><ENTI>}
 			{<ENTI>(<IN>|<IN><DT>)<ENTI|NN|NNS>}
@@ -29,7 +51,7 @@ class ExtraerEntidades:
 			{<LS|CD><IN><ENTI>}
 			{<ENTI><DT><LS|CD>}
 			{<ENTI><LS|CD>}
-		""")
+		""")'''
 		ObjTag = Tokenizar()
 		Lista = []
 		Lista2 = []

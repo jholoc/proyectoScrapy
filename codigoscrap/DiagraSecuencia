@@ -1,0 +1,23 @@
+https://www.websequencediagrams.com/
+title TOKENIZAR
+MainActivity->+Tokenizar: Enviar texto
+Tokenizar->Tokenizar: Tokeniza texto
+Tokenizar->Tokenizar: Tagea tokens
+Tokenizar-->-MainActivity: Texto tageado
+
+title EXTRAE ENTIDADES
+MainActivity->+ExtraccionEntidades: Enviar texto
+ExtraccionEntidades->ExtraccionEntidades: Descompone texto
+ExtraccionEntidades->+Tokeinizar: Enviar texto
+Tokeinizar-->-ExtraccionEntidades: texto tageado
+ExtraccionEntidades->ExtraccionEntidades: Extrae Entidades
+ExtraccionEntidades-->-MainActivity: Lisa de Entidades
+
+
+title DESAMBIGUAR y ENLAZAR
+MainActivity->+DesambiguaEnlazar: Enviar texto
+DesambiguaEnlazar->DesambiguaEnlazar: Descompone texto
+DesambiguaEnlazar->+ExtraccionEntidades: Enviar texto
+ExtraccionEntidades-->-DesambiguaEnlazar: Lisa de Entidades
+DesambiguaEnlazar->DesambiguaEnlazar: DesambiguaEnlaza
+DesambiguaEnlazar-->-MainActivity: Lisa de Entidades Desambiguadas y Elazadas
