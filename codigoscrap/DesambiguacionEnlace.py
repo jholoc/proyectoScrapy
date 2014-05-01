@@ -135,43 +135,37 @@ class DesamEnlace():
 		return ListaOrdenado
 
 
-
+		#entidad= unicodedata.normalize('NFKD', str(entidad)).encode('ascii','ignore') #normaliza la codificacion del texto
 
 	def Linkear(self,entidad,contexto,idioma):
 		linkear=[]
 		entidad=entidad.decode('utf-8')
-
-		#print type(entidad)
-		#entidad= unicodedata.normalize('NFKD', str(entidad)).encode('ascii','ignore') #normaliza la codificacion del texto
 		try:
-			#results = self.ConsuDbpedia(entidad,'rdfs:label',idioma)
-			results = self.ConsuDbpedia(entidad,'rdfs:label','en')
-			#if results["results"]["bindings"]==[]:
-			#	results = self.ConsuDbpedia(entidad,'rdfs:label','es')
+			results = self.ConsuDbpedia(entidad,'rdfs:label',idioma)
+			#results = self.ConsuDbpedia(entidad,'rdfs:label','en')
+			if results["results"]["bindings"]==[]:
+				if idioma=='en':
+					results = self.ConsuDbpedia(entidad,'rdfs:label','es')
+				else:
+					results = self.ConsuDbpedia(entidad,'rdfs:label','en')
 		except Exception, e:
 			print e
 			return
 		for result in results["results"]["bindings"]:
 			link=(result["label"]["value"])
+			print link
 			if 'Category' in link:
 				continue
-			#print link
-			
 			try:
 				results2 = self.ConsuDbpedia2(link,'rdf:type')
 			except Exception, e:
-				#print e
 				continue
-
 
 			results2 = results2["results"]["bindings"]
 			if results2 ==[]:
-				#print 'NADA'
 				UrlyTipo=[]
 				results3=self.ConsuDbpedia3(link,'dbpedia-owl:wikiPageDisambiguates')
 				results3=results3["results"]["bindings"]
-				#print'aquiiiiiii'
-				#print results3
 				if results3!=[]:
 					for result3 in results3:
 						link=(result3["label"]["value"])
@@ -187,7 +181,6 @@ class DesamEnlace():
 						TipoFinal=self.TipoEntidad(results4)
 						UrlyTipo.append([link,TipoFinal])
 					linkear=self.SelecionaTipo(UrlyTipo,contexto)
-					#print linkear
 				else:
 					TipoFinal=self.TipoEntidad(results2)
 					linkear=[[1,link,TipoFinal]]
@@ -195,10 +188,8 @@ class DesamEnlace():
 			else:
 				TipoFinal=self.TipoEntidad(results2)
 				linkear=[[1,link,TipoFinal]]
-				#print '%s'%TipoFinal
+			break
 		LisDesyEnlase=[entidad,linkear]
-			#break
-		#print LisDesyEnlase
 		return LisDesyEnlase
 
 	def DesamEnlaceDescom(self,Entrada):
@@ -210,7 +201,6 @@ class DesamEnlace():
 			entidades=' '.join(c[0] for c in entidad[0])
 			contexto= entidad[1]
 			link=self.Linkear(entidades,contexto,idioma)
-			#print link
 			DesamEnl.append(link)
 		return DesamEnl
 	def DesamEnlace(self,Entrada):
