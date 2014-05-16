@@ -21,3 +21,62 @@ DesambiguaEnlazar->+ExtraccionEntidades: Enviar texto
 ExtraccionEntidades-->-DesambiguaEnlazar: Lisa de Entidades
 DesambiguaEnlazar->DesambiguaEnlazar: DesambiguaEnlaza
 DesambiguaEnlazar-->-MainActivity: Lisa de Entidades Desambiguadas y Elazadas
+
+
+
+https://www.websequencediagrams.com/
+title TOKENIZAR
+MainActivity->+TOKENIZAR: Enviar texto
+TOKENIZAR->TOKENIZAR: Detectar idioma
+TOKENIZAR->+tagearSentenciaEs: Envía texto
+tagearSentenciaEs->tagearSentenciaEs: Tokeniza texto
+tagearSentenciaEs->+traducir: Envía tokens
+traducir->traducir: Traduce tokens
+traducir-->-tagearSentenciaEs: Tokens traducidos
+tagearSentenciaEs->tagearSentenciaEs: Tagea Tokens
+tagearSentenciaEs-->-TOKENIZAR: Lista Tokens Tageados
+TOKENIZAR->+tagearSentenciaEn: Envía texto
+tagearSentenciaEn->tagearSentenciaEn: Tokeniza texto
+tagearSentenciaEn->tagearSentenciaEn: Tagea Tokens
+tagearSentenciaEn-->-TOKENIZAR: Lista Tokens Tageados
+TOKENIZAR-->-MainActivity: Lista Tokens Tageados
+
+title EXTRAE ENTIDADES
+MainActivity->+EXTRAERENTIDADES: Enviar entrada
+EXTRAERENTIDADES->EXTRAERENTIDADES: Detectar tipo de entrada
+EXTRAERENTIDADES->EXTRAERENTIDADES: Detectar idioma
+EXTRAERENTIDADES->+recuperarEntidadesEs: Envía texto
+recuperarEntidadesEs->+TOKENIZAR: Tokeniza texto
+TOKENIZAR-->-recuperarEntidadesEs: Lista Tokens Tageados
+recuperarEntidadesEs->recuperarEntidadesEs: Extraer Entidades con Chunker(Patrones Definidos)
+recuperarEntidadesEs-->-EXTRAERENTIDADES: Lista (Entidades, tag y contexto)
+EXTRAERENTIDADES->+recuperarEntidadesEn: Envía texto
+recuperarEntidadesEn->+TOKENIZAR: Tokeniza texto
+TOKENIZAR-->-recuperarEntidadesEn: Lista Tokens Tageados
+recuperarEntidadesEn->recuperarEntidadesEn:  Extrae entidades con nechuck
+recuperarEntidadesEn-->-EXTRAERENTIDADES: Lista (Entidades, tag y contexto)
+EXTRAERENTIDADES->+recuperarEntidadesToken: Lista (Entidades, tag y contexto)
+recuperarEntidadesToken->recuperarEntidadesToken:  Extrae entidades con nechuck
+recuperarEntidadesToken-->-EXTRAERENTIDADES: Lista (Entidades, tag y contexto)
+EXTRAERENTIDADES-->-MainActivity: Lista (Entidades, tag y contexto)
+
+
+
+title DESAMBIGUAR y ENLAZAR
+MainActivity->+DESAMENLACE: Enviar entrada
+DESAMENLACE->DESAMENLACE: Detectar tipo de entrada
+DESAMENLACE->DESAMENLACE: Detectar idioma
+DESAMENLACE->+EXTRAERENTIDADES: Envía texto
+EXTRAERENTIDADES-->-DESAMENLACE: Lista (Entidades, tag y contexto)
+DESAMENLACE->+DesamEnlaceDescom: Envía Lista (Entidades, tag y contexto)
+DesamEnlaceDescom->DesamEnlaceDescom: Detectar idioma
+DesamEnlaceDescom->DesamEnlaceDescom: Descomponer lista
+DesamEnlaceDescom->+Linkear: Lista entidades e idioma
+Linkear->Linkear: Consulta entidad a la dbpdia
+Linkear->Linkear: Detectar ambiguadad
+Linkear->Linkear: Desambiguar(contexto contra label Dbpedia)
+Linkear->Linkear: Detectar tipo
+Linkear->Linkear: Listar Entidades con recursos enlazados
+Linkear-->-DesamEnlaceDescom: Lista Entidades Desambiguadas y enlazadas
+DesamEnlaceDescom-->-DESAMENLACE: Lista Entidades Desambiguadas y enlazadas
+DESAMENLACE-->-MainActivity: Lista Entidades Desambiguadas y enlazadas
