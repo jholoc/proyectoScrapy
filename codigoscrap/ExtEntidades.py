@@ -3,7 +3,6 @@
 import nltk
 from nltk import RegexpParser,sent_tokenize, word_tokenize, pos_tag, ne_chunk
 import goslate
-from bd import *
 from tokenizarTexto import *
 
 class ExtraerEntidades:

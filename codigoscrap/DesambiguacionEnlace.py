@@ -2,7 +2,6 @@
 #-*-coding: utf-8 *
 import re,string
 from tokenizarTexto import *
-from DesambiguarTokens import *
 from ExtEntidades import *
 from SPARQLWrapper import SPARQLWrapper, JSON
 import unicodedata
@@ -12,7 +11,7 @@ gs = goslate.Goslate()
 
 ObjTag = Tokenizar()
 ObjExt = ExtraerEntidades()
-ObjDesam = Desambiguar()
+
 
 class DesamEnlace():
 

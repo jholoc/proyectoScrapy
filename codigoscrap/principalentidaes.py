@@ -172,6 +172,13 @@ def Linkear(entidad,contexto):
 	print'--------------'
 	return LisDesyEnlase'''
 
+import json
+lista = [1, 2, (3, 4)] # Note that the 3rd element is a tuple (3, 4)
+l=json.dumps(lista) # '[1, 2, [3, 4]]'
+print lista
+print l
+
+
 #texto='Fuji  entering your own text in this text box to see what knowledge AlchemyAPI can extract from your unstructured data. University Tecnic  of Loja is the university Catolic of Loja'
 texto=""" El monte Fuji ya es Patrimonio de la Humanidad. El volcán Fuji, Japón, entró este sábado a formar parte del patrimonio mundial o de la humanidad de la Organización de las Naciones Unidas para la Educación, la Ciencia y la Cultura (Unesco). El Comité del Patrimonio Mundial reunido en Phnom Penh alabó esta cumbre de 3.776 metros de altura que "ha sido inspiración de poetas y artistas y ha sido objeto de peregrinación desde hace siglos". Los japoneses consideran sagrado el Fujiyama (monte Fuyi en japonés), el punto más alto del país, y miles viajan todos los veranos allí para subir a la cumbre, porque es la única época del año que el tiempo lo permite. Los expertos de la Unesco también inscribieron en el patrimonio de la humanidad hoy las terrazas de arroz de Honghe Hani, en China, y el Parque nacional de Sehlabathebe, en Lesoto. Las terrazas de arroz de Hongye Hani cubren 16.603 hectáreas en la provincia de Yunnan y presentan desde hace 1.300 años un paisaje espectacular de arrozales que descienden de manera escalonada desde las montañas Ailao hasta la ribera del río Hong. La Unesco incorporó en la lista 6.550 hectáreas del Parque Nacional Sehlabathebe, en Lesoto, como una extensión de la reserva uKhahlamba Drakensberg, en Sudáfrica. El Comité del Patrimonio Mundial comenzó el pasado día 16 una serie de sesiones en Phnom Penh para examinar 32 candidaturas y clausurará las reuniones el próximo día 27 en el marco de los templos de Angkor, joya arquitectónica del imperio Jemer, en el norte de Camboya. El organismo también ha analizado o analizará el estado de conservación de lugares declarados patrimonio de la humanidad en Siria y Mali, afectados por la guerra, así como el Parque de Doñana, en España, y el casco histórico de Valparaíso, en Chile. EFE """
 #texto='''It is currently a work in progress, but the fundamentals are in place and you can already start building kick-ass browsable Web APIs with it. If you want to start using Flask API right now go ahead and do so, but be sure to follow the release notes of new versions carefully.'''
